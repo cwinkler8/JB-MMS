@@ -1,0 +1,33 @@
+{
+    "workflowApiVersion": "1.1",
+    "metaData": {
+        "icon": "images/postman.png",
+        "iconSmall": "images/postmanSmall.png",
+        "category": "message"
+    },
+    "type": "myActivityType",
+    "lang": {
+        "en-US": {
+            "name": "LinkedIn",
+            "description": "A custom Journey Builder activity to fire HTTP requests to a designated endpoint"
+        }
+    },
+    "arguments": {},
+    "configurationArguments": {
+        "applicationExtensionKey": "bd543edc-7215-4a31-b97c-691713d6c962",
+        "save": {
+           "url": "URI/for/your/activity/save"
+       }
+    },
+    "wizardSteps": [
+        { "label": "First Call", "key": "firstCall" },
+        { "label": "Second Call", "key": "secondCall" }
+    ],
+    "userInterfaces": {
+        "configModal": {
+            "height": 200,
+            "width": 300,
+            "fullscreen": true
+        }
+    }
+}
