@@ -2,13 +2,12 @@
     "workflowApiVersion": "1.1",
     "metaData": {
         "icon": "images/postman.png",
-        "iconSmall": "images/postmanSmall.png",
-        "category": "message"
+        "iconSmall": "images/postmanSmall.png"
     },
     "type": "myActivityType",
     "lang": {
         "en-US": {
-            "name": "LinkedIn",
+            "name": "Postman",
             "description": "A custom Journey Builder activity to fire HTTP requests to a designated endpoint"
         }
     },
