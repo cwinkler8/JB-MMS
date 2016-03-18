@@ -329,6 +329,6 @@
 
         return self;
     };
-    console.loger("Return Postmonger");
+    console.log("Return Postmonger");
     return Postmonger;
 }));
