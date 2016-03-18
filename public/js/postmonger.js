@@ -15,6 +15,7 @@
     }else {
         root.Postmonger = factory(root);
     }
+    console.log("Returning postmonger: " + root.Postmonger);
 }(this, function(root){
     root = root || window;
 
