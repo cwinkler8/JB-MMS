@@ -1,8 +1,9 @@
 define([
     'js/postmonger'
-], function(Postmonger) {
+], function(postmonger) {
     'use strict';
-    console.log("Postmonger: " + Postmonger);
+    var Postmonger = postmonger;
+    console.log("Postmonger: " + postmonger);
     var connection = new Postmonger.Session();
     var payload = {};
     var lastStepEnabled = false;
