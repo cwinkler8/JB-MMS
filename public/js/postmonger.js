@@ -36,7 +36,8 @@
         return this;
     };
     Postmonger.version = '0.0.12';
-
+    console.log("Postmonger version: " + Postmonger.version);
+    
     //Create a new Postmonger Connection
     Connection = Postmonger.Connection = function(options){
         options = (typeof(options)==='object') ? options : {};
@@ -328,6 +329,6 @@
 
         return self;
     };
-
+    console.loger("Return Postmonger");
     return Postmonger;
 }));
