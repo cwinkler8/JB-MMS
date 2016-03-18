@@ -1,8 +1,9 @@
-define([
-    'js/postmonger'
-], function(Postmonger) {
+define(['js/postmonger'], function(Postmonger) {
     'use strict';
-
+        
+    for ( var i in window ) {
+        console.log(i, typeof window[i], window[i]);
+    }    
     console.log("Postmonger: " + Postmonger);
     var connection = new Postmonger.Session();
     var payload = {};
