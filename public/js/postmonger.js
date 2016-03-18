@@ -14,8 +14,7 @@
         define('postmonger', [], function(){ return factory(root); });
     }else {
         root.Postmonger = factory(root);
-    }
-    console.log("Returning postmonger: " + root.Postmonger);
+    }    
 }(this, function(root){
     root = root || window;
 
@@ -331,5 +330,5 @@
         return self;
     };
     console.log("Return Postmonger");
-    return Postmonger;
+    return {'Postmonger': Postmonger};
 }));
