@@ -1,5 +1,5 @@
 define([
-    'js/postmonger'
+    'postmonger'
 ], function(
     Postmonger
 ) {
