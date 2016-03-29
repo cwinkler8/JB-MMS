@@ -1,7 +1,13 @@
-define(['js/postmonger'], function(Postmonger) {
+requirejs.config({
+    paths: {
+        postmonger: 'js/postmonger'
+    }
+});
+
+define(['postmonger'], function(Postmonger) {
     'use strict';
         
-    console.log("Postmonger: " + this.Postmonger);
+    console.log("Postmonger: " + Postmonger);
     var connection = new Postmonger.Session();
     var payload = {};
     var lastStepEnabled = false;
