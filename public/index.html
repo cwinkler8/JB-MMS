@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Custom Journey Builder Activity</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/require.js"></script>
@@ -27,19 +28,38 @@
             padding: 20px;
             margin: 0;
         }
-        .step {
+        /*.step {
             display: none;
-        }
+        }*/
         #step1 {
             display: block;
         }
+        
+        .urlProperties {
+            padding: 5px;
+        }
+        
+        .requestProperties {
+            padding: 5px;
+            height: 40px;
+        }
+        .button {
+            background-color:#337ab7; /* Green */
+            border: none;
+            color: white;
+            padding: 2px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }        
     </style>
 
 </head>
 <body>
-<div id="firstCall" class="step">
+<!--<div id="firstCall" class="step1">
 
-    Select your SMS message:
+    Authentication Mechanism:
     <select id="select1">
         <option value="">Select an option</option>
         <option value="someMessage">Some SMS</option>
@@ -48,9 +68,29 @@
         <option value="unknownMessage">Unknown SMS</option>
     </select>
 
-</div>
-<div id="secondCall" class="step">
-    Here's a second page with some info on it.
+</div>-->
+
+<div id="secondCall" class="step2">
+    
+    <div class="urlProperties">
+        <select id="select1">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PATCH">PATCH</option>
+            <option value="DELETE">DELETE</option>
+        </select>
+        
+        <input type="text" name="userUrl" size="100" aria-placeholder="Enter request URL here">
+        
+        <button type="button" class="button">Test</button>
+    </div>
+    <div class="requestProperties">
+        <ul class="nav nav-tabs">
+        <li class="active"><a href="#">Headers</a></li>
+        <li><a href="#">Body</a></li>
+        </ul>
+    </div>
+
 </div>
 </body>
 </html>
