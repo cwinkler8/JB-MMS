@@ -12,9 +12,35 @@
             "description": "A custom Journey Builder activity to fire HTTP requests to a designated endpoint"
         }
     },
-    "arguments": {},
+    "arguments": {
+            "execute": {
+            "inArguments": [
+                {
+                    "emailAddress": "{{Contact.DefaultEmailAddress}}"
+                },
+                {
+                    "phoneNumber": "{{Contact.DefaultPhoneNumber}}"
+                }
+            ],
+            "outArguments": [
+                {
+                    "foundSignupDate": ""
+                }
+            ],
+            "url": "https://powerful-earth-81232.herokuapp.com/events"
+        }
+    },
     "configurationArguments": {
-        "applicationExtensionKey": "7799fa69-acd2-4e9e-9566-1e55d13c8465"
+        "applicationExtensionKey": "7799fa69-acd2-4e9e-9566-1e55d13c8465",
+       "save": {
+           "url": "https://powerful-earth-81232.herokuapp.com/events"
+       },
+       "publish": {
+           "url": "https://powerful-earth-81232.herokuapp.com/events"
+       },
+       "validate": {
+           "url": "https://powerful-earth-81232.herokuapp.com/events"
+       }
     },
     "wizardSteps": [
         { "label": "First Call", "key": "firstCall" },
