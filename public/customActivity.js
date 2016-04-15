@@ -37,12 +37,12 @@ define(['postmonger'], function(Postmonger) {
         connection.trigger('requestEndpoints');
 
         // Disable the next button if a value isn't selected
-     //   $('#select1').change(function() {
-       //     var message = getMessage();
-     //       connection.trigger('updateButton', { button: 'next', enabled: Boolean(message) });
+        $('#select1').change(function() {
+            var message = getAuthType();
+            connection.trigger('updateButton', { button: 'next', enabled: Boolean(message) });
 
-       //     $('#message').html(message);
-     //   });
+           $('#authType').html(authType);
+        });
 
         // Toggle step 4 active/inactive
         // If inactive, wizard hides it and skips over it during navigation
@@ -59,7 +59,7 @@ define(['postmonger'], function(Postmonger) {
             payload = data;
         }
 
-        var message;
+        var authType;
         var hasInArguments = Boolean(
             payload['arguments'] &&
             payload['arguments'].execute &&
@@ -71,22 +71,22 @@ define(['postmonger'], function(Postmonger) {
 
         $.each(inArguments, function(index, inArgument) {
             $.each(inArgument, function(key, val) {
-                if (key === 'message') {
-                    message = val;
+                if (key === 'authType') {
+                    authType = val;
                 }
             });
         });
 
         // If there is no message selected, disable the next button
-     //   if (!message) {
-     //       showStep(null, 1);
-    //        connection.trigger('updateButton', { button: 'next', enabled: false });
+        if (!authType) {
+            showStep(null, 1);
+            connection.trigger('updateButton', { button: 'next', enabled: false });
     //        // If there is a message, skip to the summary step
-    //    } else {
-    //        $('#select1').find('option[value='+ message +']').attr('selected', 'selected');
-    //        $('#message').html(message);
-    //        showStep(null, 3);
-    //    }
+        } else {
+          $('#select1').find('option[value='+ authType +']').attr('selected', 'selected');
+           $('#authType').html(authType);
+            showStep(null, 2);
+        }
     }
 
     function onGetTokens (tokens) {
@@ -135,7 +135,7 @@ define(['postmonger'], function(Postmonger) {
                 $('#firstCall').show();
                 connection.trigger('updateButton', {
                     button: 'next',
-                    enabled: Boolean(getMessage())
+                    enabled: Boolean(getAuthType())
                 });
                 connection.trigger('updateButton', {
                     button: 'back',
@@ -175,7 +175,7 @@ define(['postmonger'], function(Postmonger) {
         connection.trigger('updateActivity', payload);
     }
 
-    function getMessage() {
+    function getAuthType() {
         return $('#select1').find('option:selected').attr('value').trim();
     }
 

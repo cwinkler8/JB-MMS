@@ -62,18 +62,17 @@
     Authentication Mechanism:
     <select id="select1">
         <option value="">Select an option</option>
-        <option value="someMessage">Some SMS</option>
-        <option value="anotherMessage">Another SMS</option>
-        <option value="thirdMessage">Third SMS</option>
-        <option value="unknownMessage">Unknown SMS</option>
+        <option value="jwt">JWT</option>
+        <option value="oauth">OAuth</option>
+        <option value="custom">Custom</option>
     </select>
 
 </div>
 
 <div id="secondCall" class="step">
-    
+    Using Authentication Type: <div id="authType"></div>
     <div class="urlProperties">
-        <select id="select1">
+        <select id="methodType">
             <option value="GET">GET</option>
             <option value="POST">POST</option>
             <option value="PATCH">PATCH</option>
