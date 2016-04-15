@@ -145,37 +145,15 @@ define(['postmonger'], function(Postmonger) {
                 });
                 connection.trigger('updateButton', {
                     button: 'next',
-                    text: 'next',
+                    text: 'done',
                     visible: true
                 });
-                break;
-            case 'step3':
-                $('#step3').show();
-                connection.trigger('updateButton', {
-                     button: 'back',
-                     visible: true
-                });
-                if (lastStepEnabled) {
-                    connection.trigger('updateButton', {
-                        button: 'next',
-                        text: 'next',
-                        visible: true
-                    });
-                } else {
-                    connection.trigger('updateButton', {
-                        button: 'next',
-                        text: 'done',
-                        visible: true
-                    });
-                }
-                break;
-            case 'step4':
-                $('#step4').show();
                 break;
         }
     }
 
     function save() {
+        console.log("Saving..");
         var name = $('#select1').find('option:selected').html();
         var value = getMessage();
 
@@ -183,11 +161,11 @@ define(['postmonger'], function(Postmonger) {
         // Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property
         // may be overridden as desired.
+        
         payload.name = name;
-
-        payload['arguments'].execute.inArguments = [{ "message": value }];
-
-        payload['metaData'].isConfigured = true;
+        payload['arguments'].execute.inArguments.push({"message": value});
+        
+        payload.metaData.isConfigured = true; 
 
         connection.trigger('updateActivity', payload);
     }
