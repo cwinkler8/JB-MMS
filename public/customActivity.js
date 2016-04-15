@@ -132,7 +132,7 @@ define(['postmonger'], function(Postmonger) {
 
         switch(currentStep.key) {
             case 'firstCall':
-                $('#step1').show();
+                $('#firstCall').show();
                 connection.trigger('updateButton', {
                     button: 'next',
                     enabled: Boolean(getMessage())
@@ -143,7 +143,7 @@ define(['postmonger'], function(Postmonger) {
                 });
                 break;
             case 'secondCall':
-                $('#step2').show();
+                $('#secondCall').show();
                 connection.trigger('updateButton', {
                     button: 'back',
                     visible: true
