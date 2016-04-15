@@ -99,8 +99,7 @@ define(['postmonger'], function(Postmonger) {
 
     function onClickedNext () {
         if (
-            (currentStep.key === 'step3' && steps[3].active === false) ||
-            currentStep.key === 'step4'
+            (currentStep.key === 'step2') 
         ) {
             save();
         } else {
