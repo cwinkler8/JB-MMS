@@ -9,6 +9,7 @@ define(['postmonger'], function(Postmonger) {
         
     console.log("Postmonger: " + Postmonger);
     var connection = new Postmonger.Session();
+    
     var payload = {};
     var lastStepEnabled = false;
     var steps = [ // initialize to the same value as what's set in config.json for consistency
@@ -18,7 +19,8 @@ define(['postmonger'], function(Postmonger) {
     var currentStep = steps[0].key;
 
     $(window).ready(onRender);
-
+    console.log('payload',payload);
+     
     connection.on('initActivity', initialize);
     connection.on('requestedTokens', onGetTokens);
     connection.on('requestedEndpoints', onGetEndpoints);
@@ -124,6 +126,7 @@ define(['postmonger'], function(Postmonger) {
         currentStep = step;
 
         $('.step').hide();
+        console.log("Current step: " + currentStep.key);
 
         switch(currentStep.key) {
             case 'step1':
