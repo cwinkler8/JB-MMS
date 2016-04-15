@@ -31,7 +31,7 @@
         }
     },
     "configurationArguments": {
-        "applicationExtensionKey": "7799fa69-acd2-4e9e-9566-1e55d13c8465",
+        "applicationExtensionKey": "jb-postman",
        "save": {
            "url": "https://powerful-earth-81232.herokuapp.com/events"
        },

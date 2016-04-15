@@ -100,6 +100,8 @@ define(['postmonger'], function(Postmonger) {
     }
 
     function onClickedNext () {
+        console.log("onClickedNext called");
+        console.log("currentStep: " + currentStep.key);
         if (
             (currentStep.key === 'step2') 
         ) {
