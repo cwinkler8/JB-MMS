@@ -103,7 +103,7 @@ define(['postmonger'], function(Postmonger) {
         console.log("onClickedNext called");
         console.log("currentStep: " + currentStep.key);
         if (
-            (currentStep.key === 'step2') 
+            (currentStep.key === 'secondCall') 
         ) {
             save();
         } else {
@@ -131,7 +131,7 @@ define(['postmonger'], function(Postmonger) {
         console.log("Current step: " + currentStep.key);
 
         switch(currentStep.key) {
-            case 'step1':
+            case 'firstCall':
                 $('#step1').show();
                 connection.trigger('updateButton', {
                     button: 'next',
@@ -142,7 +142,7 @@ define(['postmonger'], function(Postmonger) {
                     visible: false
                 });
                 break;
-            case 'step2':
+            case 'secondCall':
                 $('#step2').show();
                 connection.trigger('updateButton', {
                     button: 'back',
