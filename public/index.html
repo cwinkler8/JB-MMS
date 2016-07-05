@@ -135,7 +135,7 @@ $('#testButton').click( function() {
     $.ajax({
         method: 'POST',
         dataType: 'json',
-        url: 'http://localhost:5000/testRequestConfig',
+        url: './testRequestConfig',
         data: JSON.stringify($('#requestForm').serializeJSON())})
         .done(function(data) { 
             console.log(JSON.stringify($('#requestForm').serializeJSON()));
