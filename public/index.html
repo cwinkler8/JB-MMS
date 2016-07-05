@@ -135,7 +135,7 @@ $('#testButton').click( function() {
     $.ajax({
         method: 'POST',
         dataType: 'json',
-        url: './testRequestConfig',
+        url: 'https://polar-taiga-52256.herokuapp.com/testRequestConfig',
         data: JSON.stringify($('#requestForm').serializeJSON())})
         .done(function(data) { 
             console.log(JSON.stringify($('#requestForm').serializeJSON()));
