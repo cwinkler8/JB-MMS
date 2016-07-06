@@ -7,7 +7,6 @@ requirejs.config({
 define(['postmonger'], function(Postmonger) {
     'use strict';
         
-    console.log("Postmonger: " + Postmonger);
     var connection = new Postmonger.Session();
     
     var payload = {};
@@ -19,7 +18,7 @@ define(['postmonger'], function(Postmonger) {
     var currentStep = steps[0].key;
 
     $(window).ready(onRender);
-    console.log('payload',payload);
+    console.log('payload pre-init: ' + payload);
      
     connection.on('initActivity', initialize);
     connection.on('requestedTokens', onGetTokens);
@@ -47,7 +46,7 @@ define(['postmonger'], function(Postmonger) {
 
     function initialize (data) {
         console.log("Calling initialize");
-        
+
         if (data) {
             payload = data;
         }
@@ -94,7 +93,6 @@ define(['postmonger'], function(Postmonger) {
     }
 
     function onClickedNext () {
-        console.log("onClickedNext called");
         console.log("currentStep: " + currentStep.key);
         if (
             (currentStep.key === 'secondCall') 
@@ -169,6 +167,9 @@ define(['postmonger'], function(Postmonger) {
         console.log('Payload: ' + JSON.stringify(payload));
 
         connection.trigger('updateActivity', payload);
+
+        console.log('After update activity: ' + JSON.stringify(payload));
+
     }
 
     function getAuthType() {

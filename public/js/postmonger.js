@@ -331,6 +331,5 @@
 
         return self;
     };
-    console.log("Return Postmonger");
     return Postmonger;
 }));
