@@ -111,7 +111,11 @@ define(['postmonger'], function(Postmonger) {
             (currentStep.key === 'secondCall') 
         ) {
             save();
-        } else {
+        } if(currentStep.key === 'firstCall') {
+            var name = $('#select1').find('option:selected').html();
+            var value = getAuthType();
+            console.log("Name " + name + " value: " + value);
+                
             connection.trigger('nextStep');
         }
     }
@@ -164,9 +168,6 @@ define(['postmonger'], function(Postmonger) {
 
     function save() {
         console.log("Saving...");
-        var name = $('#select1').find('option:selected').html();
-        var value = getAuthType();
-        console.log("Name " + name + " value: " + value);
 
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
