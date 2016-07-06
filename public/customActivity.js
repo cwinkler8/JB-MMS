@@ -29,7 +29,12 @@ define(['postmonger'], function(Postmonger) {
     connection.on('gotoStep', onGotoStep);
 
     console.log("Request schema called");
-    connection.on('requestSchema', requestedSchema);
+    connection.on('requestSchema', onGetSchema);
+    connection.trigger('requestSchema');
+
+    function onGetSchema(schema) {
+        console.log(JSON.stringify(schema));
+    }
 
     function requestedSchema (data) {
         console.log("Requested schema: " + JSON.stringify(data));
@@ -88,6 +93,7 @@ define(['postmonger'], function(Postmonger) {
             showStep(null, 2);
         }
     }
+
 
     function onGetTokens (tokens) {
         // Response: tokens = { token: <legacy token>, fuel2token: <fuel api token> }
