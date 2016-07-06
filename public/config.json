@@ -22,19 +22,19 @@
     "configurationArguments": {
         "applicationExtensionKey": "jb-postman",
        "save": {
-           "url": "https://powerful-earth-81232.herokuapp.com/save",
+           "url": "https://polar-taiga-52256.herokuapp.com/save",
             "body": "",
             "verb": "POST",
             "useJwt": false
        },
        "publish": {
-           "url": "https://powerful-earth-81232.herokuapp.com/publish",
+           "url": "https://polar-taiga-52256.herokuapp.com/publish",
             "body": "",
             "verb": "POST",
             "useJwt": false
        },
        "validate": {
-           "url": "https://powerful-earth-81232.herokuapp.com/validate",
+           "url": "https://polar-taiga-52256.herokuapp.com/validate",
             "body": "",
             "verb": "POST",
             "useJwt": false
