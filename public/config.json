@@ -14,32 +14,21 @@
     },
     "arguments": {
             "execute": {
-            "inArguments": [
-                {
-                    "emailAddress": "{{Contact.DefaultEmailAddress}}"
-                },
-                {
-                    "phoneNumber": "{{Contact.DefaultPhoneNumber}}"
-                }
-            ],
-            "outArguments": [
-                {
-                    "foundSignupDate": ""
-                }
-            ],
+            "inArguments": [],
+            "outArguments": [],
             "url": "https://powerful-earth-81232.herokuapp.com/events"
         }
     },
     "configurationArguments": {
         "applicationExtensionKey": "jb-postman",
        "save": {
-           "url": "https://powerful-earth-81232.herokuapp.com/events"
+           "url": "https://powerful-earth-81232.herokuapp.com/save"
        },
        "publish": {
-           "url": "https://powerful-earth-81232.herokuapp.com/events"
+           "url": "https://powerful-earth-81232.herokuapp.com/publish"
        },
        "validate": {
-           "url": "https://powerful-earth-81232.herokuapp.com/events"
+           "url": "https://powerful-earth-81232.herokuapp.com/validate"
        }
     },
     "wizardSteps": [
