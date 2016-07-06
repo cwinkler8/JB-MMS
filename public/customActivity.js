@@ -29,7 +29,7 @@ define(['postmonger'], function(Postmonger) {
     connection.on('gotoStep', onGotoStep);
 
     console.log("Attempting to trigger a schema request");
-connection.trigger('requestSchema');
+connection.trigger('requestedSchema');
         
     // connection.trigger('requestSchema', onGetSchema);
 
@@ -41,7 +41,7 @@ connection.trigger('requestSchema');
     //     console.log("Requested schema: " + JSON.stringify(data));
     // }
 
-	connection.on('requestSchema', function( data ) {
+	connection.on('requestedSchema', function( data ) {
 		if( data.error ) {
 			console.error( data.error );
 		} else {
