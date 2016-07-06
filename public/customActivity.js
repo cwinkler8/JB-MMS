@@ -115,7 +115,7 @@ define(['postmonger'], function(Postmonger) {
             var name = $('#select1').find('option:selected').html();
             var value = getAuthType();
             console.log("Name " + name + " value: " + value);
-                
+
             connection.trigger('nextStep');
         }
     }
@@ -175,7 +175,7 @@ define(['postmonger'], function(Postmonger) {
         // may be overridden as desired.
         
         payload.name = name;
-        payload['arguments'].execute.inArguments.push({"message": value});
+        //payload['arguments'].execute.inArguments.push({"message": value});
         
         payload.metaData.isConfigured = true; 
         console.log('Payload: ' + JSON.stringify(payload));
