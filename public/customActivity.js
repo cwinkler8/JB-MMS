@@ -114,8 +114,10 @@ define(['postmonger'], function(Postmonger) {
         } if(currentStep.key === 'firstCall') {
             var name = $('#select1').find('option:selected').html();
             var value = getAuthType();
+            payload['arguments'].execute.inArguments.push({"message": value});
+            
             console.log("Name " + name + " value: " + value);
-
+                
             connection.trigger('nextStep');
         }
     }
@@ -174,8 +176,8 @@ define(['postmonger'], function(Postmonger) {
         // set by this activity's config.json file.  Any property
         // may be overridden as desired.
         
-        payload.name = name;
-        //payload['arguments'].execute.inArguments.push({"message": value});
+        payload.name = "Http Activity";
+        // payload['arguments'].execute.inArguments.push({"message": value});
         
         payload.metaData.isConfigured = true; 
         console.log('Payload: ' + JSON.stringify(payload));
