@@ -30,7 +30,7 @@ define(['postmonger'], function(Postmonger) {
 
     
     console.log("requestedschema called");
-    connection.on('requestedSchema', function(schema) {
+    connection.on('requestSchema', function(schema) {
         console.log("Schema retrieved: ")
         console.log(JSON.stringify(schema));
      });
