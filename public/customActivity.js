@@ -29,7 +29,7 @@ define(['postmonger'], function(Postmonger) {
     connection.on('gotoStep', onGotoStep);
 
     // console.log("Request schema called");
-    connection.on('requestSchema', function(payload) {
+    connection.on('requestedSchema', function(payload) {
         console.log("Schema retrieved: ")
         console.log(JSON.stringify(payload));
      });
@@ -106,7 +106,7 @@ define(['postmonger'], function(Postmonger) {
 
     function onGetEndpoints (endpoints) {
         // Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
-        console.log("Endpoints: " + endpoints);
+        console.log("Endpoints: " + JSON.stringify(endpoints));
     }
 
     function onClickedNext () {
