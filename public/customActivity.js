@@ -28,17 +28,21 @@ define(['postmonger'], function(Postmonger) {
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
 
-    console.log("Request schema called");
-    connection.on('requestSchema', onGetSchema);
-    connection.trigger('requestSchema', onGetSchema);
+    // console.log("Request schema called");
+    connection.on('requestSchema', function(payload) {
+        console.log("Schema retrieved: ")
+        console.log(JSON.stringify(payload));
+     });
+    
+    // connection.trigger('requestSchema', onGetSchema);
 
-    function onGetSchema(schema) {
-        console.log(JSON.stringify(schema));
-    }
+    // function onGetSchema(schema) {
+    //     console.log(JSON.stringify(schema));
+    // }
 
-    function requestedSchema (data) {
-        console.log("Requested schema: " + JSON.stringify(data));
-    }
+    // function requestedSchema (data) {
+    //     console.log("Requested schema: " + JSON.stringify(data));
+    // }
 
     function onRender() {
         // JB will respond the first time 'ready' is called with 'initActivity'
@@ -102,7 +106,7 @@ define(['postmonger'], function(Postmonger) {
 
     function onGetEndpoints (endpoints) {
         // Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
-        // console.log(endpoints);
+        console.log("Endpoints: " + endpoints);
     }
 
     function onClickedNext () {
