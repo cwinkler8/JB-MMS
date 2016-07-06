@@ -173,7 +173,7 @@ define(['postmonger'], function(Postmonger) {
         payload.metaData.isConfigured = true; 
 
         connection.trigger('updateActivity', payload);
-        console.log('Payload: ' + payload);
+        console.log('Payload: ' + JSON.stringify(payload));
     }
 
     function getAuthType() {
