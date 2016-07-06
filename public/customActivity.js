@@ -28,6 +28,12 @@ define(['postmonger'], function(Postmonger) {
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
 
+    connection.on('requestSchema', requestedSchema);
+
+    function requestedSchema (data) {
+        console.log("Requested schema: " + JSON.stringify(data));
+    }
+
     function onRender() {
         // JB will respond the first time 'ready' is called with 'initActivity'
         connection.trigger('ready');
