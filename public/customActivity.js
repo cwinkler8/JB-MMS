@@ -28,14 +28,9 @@ define(['postmonger'], function(Postmonger) {
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
 
-    
-    console.log("requestedschema called");
-    connection.on('requestSchema', function(schema) {
-        console.log("Schema retrieved: ")
-        console.log(JSON.stringify(schema));
-     });
-    
-    console.log(JSON.stringify(connection));    
+    console.log("Attempting to trigger a schema request");
+connection.trigger('requestSchema');
+        
     // connection.trigger('requestSchema', onGetSchema);
 
     // function onGetSchema(schema) {
@@ -45,6 +40,15 @@ define(['postmonger'], function(Postmonger) {
     // function requestedSchema (data) {
     //     console.log("Requested schema: " + JSON.stringify(data));
     // }
+
+	connection.on('requestSchema', function( data ) {
+		if( data.error ) {
+			console.error( data.error );
+		} else {
+			endpoints = data;
+		}
+	});
+
 
     function onRender() {
         // JB will respond the first time 'ready' is called with 'initActivity'
