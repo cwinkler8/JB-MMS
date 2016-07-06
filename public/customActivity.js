@@ -28,12 +28,14 @@ define(['postmonger'], function(Postmonger) {
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
 
-    // console.log("Request schema called");
-    connection.on('requestedSchema', function(payload) {
+    
+    console.log("requestedschema called");
+    connection.on('requestedSchema', function(schema) {
         console.log("Schema retrieved: ")
-        console.log(JSON.stringify(payload));
+        console.log(JSON.stringify(schema));
      });
     
+    console.log(JSON.stringify(connection));    
     // connection.trigger('requestSchema', onGetSchema);
 
     // function onGetSchema(schema) {
