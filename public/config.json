@@ -15,8 +15,16 @@
     "arguments": {
             "execute": {
             "inArguments": [],
-            "outArguments": [],
-            "url": "https://polar-taiga-52256.herokuapp.com/events"
+            "outArguments": [
+                { "activityId": "{{Activity.Id}}" }
+            ],
+            "url": "https://polar-taiga-52256.herokuapp.com/events", 
+            "verb": "POST",
+            "body": "",
+            "header": "",
+            "format": "json",
+            "useJwt": false,
+            "timeout": 10000
         }
     },
     "configurationArguments": {

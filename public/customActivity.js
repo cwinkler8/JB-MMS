@@ -43,22 +43,15 @@ define(['postmonger'], function(Postmonger) {
 
            $('#authType').html(authType);
         });
-
-        // Toggle step 4 active/inactive
-        // If inactive, wizard hides it and skips over it during navigation
-   //     $('#toggleLastStep').click(function() {
-   //         lastStepEnabled = !lastStepEnabled; // toggle status
-   //         steps[3].active = !steps[3].active; // toggle active
-
-     //       connection.trigger('updateSteps', steps);
-    //    });
     }
 
     function initialize (data) {
+        console.log("Calling initialize");
+        
         if (data) {
             payload = data;
         }
-
+        console.log("Payload in initialize: " + JSON.stringify(payload))
         var authType;
         var hasInArguments = Boolean(
             payload['arguments'] &&
@@ -73,11 +66,12 @@ define(['postmonger'], function(Postmonger) {
             $.each(inArgument, function(key, val) {
                 if (key === 'authType') {
                     authType = val;
+                    console.log("authType " + authType);
                 }
             });
         });
 
-        // If there is no message selected, disable the next button
+        // If there is no authentication method selected, disable the next button
         if (!authType) {
             showStep(null, 1);
             connection.trigger('updateButton', { button: 'next', enabled: false });
@@ -161,6 +155,7 @@ define(['postmonger'], function(Postmonger) {
         console.log("Saving...");
         var name = $('#select1').find('option:selected').html();
         var value = getAuthType();
+        console.log("Name " + name + " value: " + value);
 
         // 'payload' is initialized on 'initActivity' above.
         // Journey Builder sends an initial payload with defaults
