@@ -5,7 +5,7 @@
         "iconSmall": "images/postmanSmall.png",
         "category": "message"
     },
-    "type": "myActivityType",
+    "type": "REST",
     "lang": {
         "en-US": {
             "name": "Postman",

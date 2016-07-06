@@ -158,7 +158,7 @@ define(['postmonger'], function(Postmonger) {
     }
 
     function save() {
-        console.log("Saving..");
+        console.log("Saving...");
         var name = $('#select1').find('option:selected').html();
         var value = getAuthType();
 
