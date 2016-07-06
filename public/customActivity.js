@@ -18,7 +18,7 @@ define(['postmonger'], function(Postmonger) {
     var currentStep = steps[0].key;
 
     $(window).ready(onRender);
-    console.log('payload pre-init: ' + payload);
+    console.log('payload pre-init: ' + JSON.stringify(payload));
      
     connection.on('initActivity', initialize);
     connection.on('requestedTokens', onGetTokens);
@@ -28,6 +28,7 @@ define(['postmonger'], function(Postmonger) {
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
 
+    console.log("Request schema called");
     connection.on('requestSchema', requestedSchema);
 
     function requestedSchema (data) {
