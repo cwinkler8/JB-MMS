@@ -30,7 +30,7 @@ define(['postmonger'], function(Postmonger) {
 
     console.log("Request schema called");
     connection.on('requestSchema', onGetSchema);
-    connection.trigger('requestSchema');
+    connection.trigger('requestSchema', onGetSchema);
 
     function onGetSchema(schema) {
         console.log(JSON.stringify(schema));
@@ -114,8 +114,8 @@ define(['postmonger'], function(Postmonger) {
         } if(currentStep.key === 'firstCall') {
             var name = $('#select1').find('option:selected').html();
             var value = getAuthType();
-            payload['arguments'].execute.inArguments.push({"message": value});
-            
+            payload['arguments'].execute.inArguments.push({"authType": value});
+
             console.log("Name " + name + " value: " + value);
                 
             connection.trigger('nextStep');

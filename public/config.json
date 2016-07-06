@@ -16,7 +16,12 @@
             "execute": {
             "inArguments": [],
             "outArguments": [
-                { "activityId": "{{Activity.Id}}" }
+                { "activityId": "{{Activity.Id}}",
+                  "authType" : "",
+                  "url" : "", 
+                  "method" : "",
+                  "headers" : "",
+                  "body" : "" }
             ],
             "url": "https://polar-taiga-52256.herokuapp.com/events", 
             "verb": "POST",
