@@ -24,38 +24,21 @@ define(['postmonger'], function(Postmonger) {
     connection.on('requestedTokens', onGetTokens);
     connection.on('requestedEndpoints', onGetEndpoints);
 
+    connection.on('requestedSchema', onGetSchema);
+
     connection.on('clickedNext', onClickedNext);
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
 
-    console.log("Attempting to trigger a schema request");
-connection.trigger('requestedSchema');
-        
-    // connection.trigger('requestSchema', onGetSchema);
-
-    // function onGetSchema(schema) {
-    //     console.log(JSON.stringify(schema));
-    // }
-
-    // function requestedSchema (data) {
-    //     console.log("Requested schema: " + JSON.stringify(data));
-    // }
-
-	connection.on('requestedSchema', function( data ) {
-		if( data.error ) {
-			console.error( data.error );
-		} else {
-			endpoints = data;
-		}
-	});
-
-
     function onRender() {
+        
         // JB will respond the first time 'ready' is called with 'initActivity'
         connection.trigger('ready');
+        console.log("Fire requestSchema");
+        connection.trigger('requestSchema');
 
-        connection.trigger('requestTokens');
-        connection.trigger('requestEndpoints');
+        connection.trigger('requestedTokens');
+        connection.trigger('requestedEndpoints');
 
         // Disable the next button if a value isn't selected
         $('#select1').change(function() {
@@ -107,12 +90,19 @@ connection.trigger('requestedSchema');
 
     function onGetTokens (tokens) {
         // Response: tokens = { token: <legacy token>, fuel2token: <fuel api token> }
-        // console.log(tokens);
+        console.log(tokens);
     }
 
     function onGetEndpoints (endpoints) {
         // Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
         console.log("Endpoints: " + JSON.stringify(endpoints));
+    }
+
+    function onGetSchema (getSchemaPayload) {
+        // Response: getSchemaPayload == { schema: [ ... ] };
+        //$( '#schema' ).text( JSON.stringify( getSchemaPayload , null , 4 ) );
+        console.log("Schema: ");
+        console.log('requestedSchema payload = ' + JSON.stringify(getSchemaPayload));
     }
 
     function onClickedNext () {
@@ -190,8 +180,6 @@ connection.trigger('requestedSchema');
         // payload['arguments'].execute.inArguments.push({"message": value});
         
         payload.metaData.isConfigured = true; 
-        console.log('Payload: ' + JSON.stringify(payload));
-
         connection.trigger('updateActivity', payload);
 
         console.log('After update activity: ' + JSON.stringify(payload));
