@@ -61,7 +61,11 @@ define(['postmonger'], function(Postmonger) {
 
         if (data) {
             payload = data;
+            $( '#initialPayload' ).text( JSON.stringify( data , null , 4 ) );
+        } else {
+            $( '#initialPayload' ).text( 'initActivity contained no data' );
         }
+
         console.log("Payload in initialize: " + JSON.stringify(payload))
         var authType;
         var hasInArguments = Boolean(
