@@ -171,6 +171,7 @@ define(['postmonger'], function(Postmonger) {
                 });
                 break;
             case 'secondCall':
+            console.log("secondCall");
                 $('#secondCall').show();
                 connection.trigger('updateButton', {
                     button: 'back',
@@ -189,6 +190,7 @@ define(['postmonger'], function(Postmonger) {
 
 
     function preparePayload() {
+        console.log("Prepare payload called");
         //When loading the
         if (!schemaPayload.schema){
             connection.trigger('requestSchema');
