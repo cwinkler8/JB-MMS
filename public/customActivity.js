@@ -118,8 +118,8 @@ define(['postmonger'], function(Postmonger) {
         ) {
             // push arguments on to the stack
             var requestMethod = getMethodType();
-            var requestUrl = $('#requestUrl').attr('value').trim();
-            var requestBody = $('#requestBody').attr('value').trim();  
+            var requestUrl = $('#requestUrl').val().trim();
+            var requestBody = $('#requestBody').val().trim();  
 
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
             payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
