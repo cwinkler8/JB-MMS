@@ -10,6 +10,8 @@ define(['postmonger'], function(Postmonger) {
     var connection = new Postmonger.Session();
     
     var payload = {};
+    var schemaPayload = [];
+
     var lastStepEnabled = false;
     var steps = [ // initialize to the same value as what's set in config.json for consistency
         { "label": "Step 1", "key": "firstCall" },
@@ -42,7 +44,6 @@ define(['postmonger'], function(Postmonger) {
         connection.trigger('ready');
         console.log("Fire requestSchema");
         connection.trigger('requestSchema');
-
         connection.trigger('requestedTokens');
         connection.trigger('requestedEndpoints');
 
@@ -106,7 +107,7 @@ define(['postmonger'], function(Postmonger) {
 
     function onGetSchema (getSchemaPayload) {
         console.log('Postmonger - requestedSchema', getSchemaPayload);
-        payload = getSchemaPayload;
+        schemaPayload = getSchemaPayload;
         // Response: getSchemaPayload == { schema: [ ... ] };
         $( '#schema' ).text( JSON.stringify( getSchemaPayload , null , 4 ) );
     }
@@ -192,7 +193,7 @@ define(['postmonger'], function(Postmonger) {
     function preparePayload() {
         console.log("Prepare payload called");
         //When loading the
-        if (!payload.schema){
+        if (!schemaPayload.schema){
             connection.trigger('requestSchema');
         }
 
@@ -202,16 +203,16 @@ define(['postmonger'], function(Postmonger) {
         //1.a) Configure inArguments from the interaction event
         var inArgumentsArray = [];
         var schemaInArgumentsArray = [];
-        for (var i = 0; i < payload.schema.length; i++){
-            var name = payload.schema[i].key.substr(payload.schema[i].key.lastIndexOf(".") + 1);
+        for (var i = 0; i < schemaPayload.schema.length; i++){
+            var name = schemaPayload.schema[i].key.substr(schemaPayload.schema[i].key.lastIndexOf(".") + 1);
             var inArgument = {};
-            inArgument[name] = "{{" + payload.schema[i].key + "}}"
+            inArgument[name] = "{{" + schemaPayload.schema[i].key + "}}"
             inArgumentsArray.push(inArgument);
 
             var schemaInArgument = {};
             schemaInArgument[name] = {};
-            schemaInArgument[name].dataType = payload.schema[i].type;
-            schemaInArgument[name].isNullable = payload.schema[i].isPrimaryKey ? false : (payload.schema[i].isNullable ? true : false);
+            schemaInArgument[name].dataType = schemaPayload.schema[i].type;
+            schemaInArgument[name].isNullable = schemaPayload.schema[i].isPrimaryKey ? false : (schemaPayload.schema[i].isNullable ? true : false);
             schemaInArgument[name].direction = "in";
             schemaInArgumentsArray.push(schemaInArgument);
         }
