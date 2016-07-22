@@ -105,10 +105,10 @@ define(['postmonger'], function(Postmonger) {
     }
 
     function onGetSchema (getSchemaPayload) {
+        console.log('Postmonger - requestedSchema', getSchemaPayload);
+        payload = getSchemaPayload;
         // Response: getSchemaPayload == { schema: [ ... ] };
-        //$( '#schema' ).text( JSON.stringify( getSchemaPayload , null , 4 ) );
-        console.log("Schema: ");
-        console.log(JSON.stringify(payload,null,4)); // Nicely format the payload
+        $( '#schema' ).text( JSON.stringify( getSchemaPayload , null , 4 ) );
     }
 
     function onClickedNext () {
