@@ -30,6 +30,13 @@ define(['postmonger'], function(Postmonger) {
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
 
+
+connection.trigger('requestSchema');
+connection.on('requestedSchema', function(payload) {
+    console.log("New line to get schema: ")
+    console.log(JSON.stringify(payload,null,4)); // Nicely format the payload
+});
+
     function onRender() {
         
         // JB will respond the first time 'ready' is called with 'initActivity'
