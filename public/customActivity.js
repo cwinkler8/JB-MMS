@@ -127,8 +127,8 @@ define(['postmonger'], function(Postmonger) {
 
                 // use .eq() within a jQuery object to navigate it by Index
 
-                headerValue = headersArr.eq(i).val(); // I'm assuming you wanted -name-
-                valueVal = valuesArr.eq(i).val();
+                var headerValue = headersArr.eq(i).val(); // I'm assuming you wanted -name-
+                var valueVal = valuesArr.eq(i).val();
 
                 // otherwise it'd be .eq(i).val(); (if you wanted the text value)
                 console.log(headerValue + " " + valueVal);
