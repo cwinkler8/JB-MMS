@@ -61,7 +61,7 @@ define(['postmonger'], function(Postmonger) {
 
         if (data) {
             payload = data;
-            $( '#initialPayload' ).text( JSON.stringify( data , null , 4 ) );
+            $( '#initialPayload' ).text( JSON.stringify( payload , null , 4 ) );
         } else {
             $( '#initialPayload' ).text( 'initActivity contained no data' );
         }
@@ -225,6 +225,8 @@ define(['postmonger'], function(Postmonger) {
         // var value = getMessage();
         // inArgumentsArray.push({ "message": value });
         // schemaInArgumentsArray.push({ "message": {"dataType": "Text", "isNullable":false, "direction":"in"}});
+
+        console.log("Payload: " + JSON.stringify(payload));
 
         //1.c) Set all inArguments in the payload
         payload['arguments'].execute.inArguments = inArgumentsArray;
