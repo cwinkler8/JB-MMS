@@ -117,8 +117,25 @@ define(['postmonger'], function(Postmonger) {
             // push arguments on to the stack
             var requestMethod = getMethodType();
             var requestUrl = $('#requestUrl').val().trim();
-            var requestBody = $('#requestBody').val().trim();  
+            var requestBody = $('#requestBody').val().trim();
 
+            var n = $("input[name^='header']").length;
+            var headersArr = $("input[name^='header']");
+            var valuesArr = $("input[name^='value']");
+
+            for(i=0; i < n; i++) {
+
+                // use .eq() within a jQuery object to navigate it by Index
+
+                headerValue = headersArr.eq(i).val(); // I'm assuming you wanted -name-
+                valueVal = valuesArr.eq(i).val();
+
+                // otherwise it'd be .eq(i).val(); (if you wanted the text value)
+                console.log(headerValue + " " + valueVal);
+            }            
+
+            var headers = $('#headers').val();
+            var values = $('#values').val();    
             // build the headers
 
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
