@@ -63,5 +63,27 @@
             "width": 300,
             "fullscreen": true
         }
-    }
+    },
+    "schema": {
+        "arguments": {
+            "execute": {
+                "inArguments": [
+                    {
+                        "authType": {
+                            "dataType": "Text",
+                            "isNullable": false,
+                            "direction": "in"   
+                        }
+                    },
+                    {
+                        "requestUrl": {
+                            "dataType": "Text",
+                            "isNullable": false,
+                            "direction": "in"
+                        }
+                    }
+                ]
+            }
+        }
+    }    
 }
