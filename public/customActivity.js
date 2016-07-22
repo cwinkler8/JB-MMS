@@ -31,11 +31,10 @@ define(['postmonger'], function(Postmonger) {
     connection.on('gotoStep', onGotoStep);
 
 
-connection.trigger('requestSchema');
-connection.on('requestedSchema', function(payload) {
-    console.log("New line to get schema: ")
-    console.log(JSON.stringify(payload,null,4)); // Nicely format the payload
-});
+// connection.trigger('requestSchema');
+// connection.on('requestedSchema', function(payload) {
+//     console.log("New line to get schema: ")
+// });
 
     function onRender() {
         
@@ -109,7 +108,7 @@ connection.on('requestedSchema', function(payload) {
         // Response: getSchemaPayload == { schema: [ ... ] };
         //$( '#schema' ).text( JSON.stringify( getSchemaPayload , null , 4 ) );
         console.log("Schema: ");
-        console.log('requestedSchema payload = ' + JSON.stringify(getSchemaPayload));
+        console.log(JSON.stringify(payload,null,4)); // Nicely format the payload
     }
 
     function onClickedNext () {
@@ -117,6 +116,15 @@ connection.on('requestedSchema', function(payload) {
         if (
             (currentStep.key === 'secondCall') 
         ) {
+            // push arguments on to the stack
+            var requestMethod = getMethodType();
+            var requestUrl = $('#requestUrl').attr('value').trim();
+            var requestBody = $('#requestBody').attr('value').trim();  
+
+            payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
+            payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
+            payload['arguments'].execute.inArguments.push({"requestBody": requestUrl});
+
             save();
         } if(currentStep.key === 'firstCall') {
             var name = $('#select1').find('option:selected').html();
@@ -197,4 +205,7 @@ connection.on('requestedSchema', function(payload) {
         return $('#select1').find('option:selected').attr('value').trim();
     }
 
+    function getMethodType() {
+        return $('#methodType').find('option:selected').attr('value').trim();
+    }
 });
