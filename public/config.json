@@ -22,7 +22,7 @@
                   "requestHeaders" : "",
                   "requestBody" : "" }
             ],
-            "outArguments": [],
+            "outArguments": [ { "requestMethod" : ""} ],
             "url": "https://polar-taiga-52256.herokuapp.com/events", 
             "verb": "POST",
             "body": "",
