@@ -32,12 +32,6 @@ define(['postmonger'], function(Postmonger) {
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
 
-
-// connection.trigger('requestSchema');
-// connection.on('requestedSchema', function(payload) {
-//     console.log("New line to get schema: ")
-// });
-
     function onRender() {
         
         // JB will respond the first time 'ready' is called with 'initActivity'
@@ -98,7 +92,6 @@ define(['postmonger'], function(Postmonger) {
         }
     }
 
-
     function onGetTokens (tokens) {
         // Response: tokens = { token: <legacy token>, fuel2token: <fuel api token> }
         console.log(tokens);
@@ -130,7 +123,7 @@ define(['postmonger'], function(Postmonger) {
 
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
             payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
-            payload['arguments'].execute.inArguments.push({"requestBody": requestUrl});
+            payload['arguments'].execute.inArguments.push({"requestBody": requestBody});
 
             save();
         } if(currentStep.key === 'firstCall') {

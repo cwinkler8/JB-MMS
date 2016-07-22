@@ -14,15 +14,8 @@
     },
     "arguments": {
             "execute": {
-            "inArguments": [
-                { "activityId": "{{Activity.Id}}",
-                  "authType" : "",
-                  "requestUrl" : "", 
-                  "requestMethod" : "",
-                  "requestHeaders" : "",
-                  "requestBody" : "" }
-            ],
-            "outArguments": [ { "requestMethod" : ""} ],
+            "inArguments": [],
+            "outArguments": [],
             "url": "https://polar-taiga-52256.herokuapp.com/events", 
             "verb": "POST",
             "body": "",
@@ -67,22 +60,7 @@
     "schema": {
         "arguments": {
             "execute": {
-                "inArguments": [
-                    {
-                        "authType": {
-                            "dataType": "Text",
-                            "isNullable": false,
-                            "direction": "in"   
-                        }
-                    },
-                    {
-                        "requestUrl": {
-                            "dataType": "Text",
-                            "isNullable": false,
-                            "direction": "in"
-                        }
-                    }
-                ]
+                "inArguments": []
             }
         }
     }    
