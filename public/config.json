@@ -17,10 +17,10 @@
             "inArguments": [
                 { "activityId": "{{Activity.Id}}",
                   "authType" : "",
-                  "url" : "", 
-                  "method" : "",
-                  "headers" : "",
-                  "body" : "" }
+                  "requestUrl" : "", 
+                  "requestMethod" : "",
+                  "requestHeaders" : "",
+                  "requestBody" : "" }
             ],
             "outArguments": [],
             "url": "https://polar-taiga-52256.herokuapp.com/events", 
