@@ -121,6 +121,8 @@ define(['postmonger'], function(Postmonger) {
             var requestUrl = $('#requestUrl').val().trim();
             var requestBody = $('#requestBody').val().trim();  
 
+            // build the headers
+
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
             payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
             payload['arguments'].execute.inArguments.push({"requestBody": requestUrl});
@@ -179,22 +181,70 @@ define(['postmonger'], function(Postmonger) {
                     text: 'done',
                     visible: true
                 });
+
+                preparePayload();
                 break;
         }
+    }
+
+
+    function preparePayload() {
+        //When loading the
+        if (!schemaPayload.schema){
+            connection.trigger('requestSchema');
+        }
+
+        // Payload is initialized on populateFields above.  Journey Builder sends an initial payload with defaults
+        // set by this activity's config.json file.  Any property may be overridden as desired.
+
+        //1.a) Configure inArguments from the interaction event
+        var inArgumentsArray = [];
+        var schemaInArgumentsArray = [];
+        for (var i = 0; i < schemaPayload.schema.length; i++){
+            var name = schemaPayload.schema[i].key.substr(schemaPayload.schema[i].key.lastIndexOf(".") + 1);
+            var inArgument = {};
+            inArgument[name] = "{{" + schemaPayload.schema[i].key + "}}"
+            inArgumentsArray.push(inArgument);
+
+            var schemaInArgument = {};
+            schemaInArgument[name] = {};
+            schemaInArgument[name].dataType = schemaPayload.schema[i].type;
+            schemaInArgument[name].isNullable = schemaPayload.schema[i].isPrimaryKey ? false : (schemaPayload.schema[i].isNullable ? true : false);
+            schemaInArgument[name].direction = "in";
+            schemaInArgumentsArray.push(schemaInArgument);
+        }
+
+        //1.b) Configure inArguments from the UI (end user manual config)
+        // var value = getMessage();
+        // inArgumentsArray.push({ "message": value });
+        // schemaInArgumentsArray.push({ "message": {"dataType": "Text", "isNullable":false, "direction":"in"}});
+
+        //1.c) Set all inArguments in the payload
+        payload['arguments'].execute.inArguments = inArgumentsArray;
+        payload['schema'].arguments.execute.inArguments = schemaInArgumentsArray;
+
+        //2.a) Configure outArguments
+        var outArgumentsArray = [];
+        var schemaOutArgumentsArray = [];
+        outArgumentsArray.push({ "result": "Text" });
+        schemaOutArgumentsArray.push({ "result": {"dataType": "Text", "access":"visible", "direction":"out"}});
+
+        //2.b) Set all outArguments in the payload
+        payload['arguments'].execute.outArguments = outArgumentsArray;
+        payload['schema'].arguments.execute.outArguments = schemaOutArgumentsArray;
+
+        //3) Set other payload values
+        payload.name = "Http Activity";
+        payload['metaData'].isConfigured = true;
+        
+//        payload.metaData.isConfigured = true; 
+
+        console.log('preparePayload', payload);
     }
 
     function save() {
         console.log("Saving...");
 
-        // 'payload' is initialized on 'initActivity' above.
-        // Journey Builder sends an initial payload with defaults
-        // set by this activity's config.json file.  Any property
-        // may be overridden as desired.
-        
-        payload.name = "Http Activity";
-        // payload['arguments'].execute.inArguments.push({"message": value});
-        
-        payload.metaData.isConfigured = true; 
         connection.trigger('updateActivity', payload);
 
         console.log('After update activity: ' + JSON.stringify(payload));
