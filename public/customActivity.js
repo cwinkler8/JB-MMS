@@ -123,24 +123,6 @@ define(['postmonger'], function(Postmonger) {
             var headersArr = $("input[name^='header']");
             var valuesArr = $("input[name^='value']");
             
-            var headers = {};
-            var header = [];
-
-            headers.header = header;
-
-            for(i=0; i < n; i++) {
-
-                // use .eq() within a jQuery object to navigate it by Index
-
-                var headerValue = headersArr.eq(i).val(); // I'm assuming you wanted -name-
-                var valueVal = valuesArr.eq(i).val();
-                var headerRecord = { headerValue : valueVal };
-                headers.header.push(headerRecord);
-
-                // otherwise it'd be .eq(i).val(); (if you wanted the text value)
-                console.log(headerValue + " " + valueVal);                
-            }            
-
             console.log("Print headers: ");
             console.log(JSON.stringify(headersArr));
             console.log(JSON.stringify(valuesArr));
