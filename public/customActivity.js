@@ -142,7 +142,8 @@ define(['postmonger'], function(Postmonger) {
             }            
 
             console.log("Print headers: ");
-            console.log(JSON.stringify(headers));
+            console.log(JSON.stringify(headersArr));
+            console.log(JSON.stringify(valuesArr));
             //var headers = $('#headers').val();
             //var values = $('#values').val();    
             // build the headers
