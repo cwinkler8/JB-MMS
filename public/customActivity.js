@@ -122,6 +122,11 @@ define(['postmonger'], function(Postmonger) {
             var n = $("input[name^='header']").length;
             var headersArr = $("input[name^='header']");
             var valuesArr = $("input[name^='value']");
+            
+            var headers = {};
+            var header = [];
+
+            headers.header = header;
 
             for(i=0; i < n; i++) {
 
@@ -129,13 +134,17 @@ define(['postmonger'], function(Postmonger) {
 
                 var headerValue = headersArr.eq(i).val(); // I'm assuming you wanted -name-
                 var valueVal = valuesArr.eq(i).val();
+                var headerRecord = { headerValue : valueVal };
+                headers.header.push(headerRecord);
 
                 // otherwise it'd be .eq(i).val(); (if you wanted the text value)
-                console.log(headerValue + " " + valueVal);
+                console.log(headerValue + " " + valueVal);                
             }            
 
-            var headers = $('#headers').val();
-            var values = $('#values').val();    
+            console.log("Print headers: ");
+            console.log(JSON.stringify(headers));
+            //var headers = $('#headers').val();
+            //var values = $('#values').val();    
             // build the headers
 
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
