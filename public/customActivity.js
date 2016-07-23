@@ -148,6 +148,8 @@ define(['postmonger'], function(Postmonger) {
             //var values = $('#values').val();    
             // build the headers
 
+            payload['arguments'].execute.inArgument.push({"headers" : JSON.stringify(headersArr)});
+            payload['arguments'].execute.inArgument.push({"values" : JSON.stringify(valuesArr)});    
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
             payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
             payload['arguments'].execute.inArguments.push({"requestBody": requestBody});
