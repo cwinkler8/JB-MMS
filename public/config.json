@@ -31,7 +31,7 @@
         }
     },
     "configurationArguments": {
-        "applicationExtensionKey": "jb-postman",
+       "applicationExtensionKey": "jb-postman",
        "save": {
            "url": "https://polar-taiga-52256.herokuapp.com/save",
             "body": "",

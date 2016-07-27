@@ -134,7 +134,7 @@ define(['postmonger'], function(Postmonger) {
             payload['arguments'].execute.inArguments.push({"values" : JSON.stringify(valuesArr)});    
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
             payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
-            payload['arguments'].execute.inArguments.push({"requestBody": requestBody});
+            payload['configurationArguments'].save.body.push({"requestBody": requestBody});
 
             save();
         } if(currentStep.key === 'firstCall') {
