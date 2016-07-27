@@ -52,7 +52,7 @@ define(['postmonger'], function(Postmonger) {
 
     function initialize (data) {
         console.log("Calling initialize");
-
+        console.log(data);
         if (data) {
             payload = data;
             $( '#initialPayload' ).text( JSON.stringify( payload , null , 4 ) );
