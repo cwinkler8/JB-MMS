@@ -118,8 +118,9 @@ define(['postmonger'], function(Postmonger) {
         ) {
             // push arguments on to the stack
             var requestMethod = getMethodType();
-            var requestUrl = $('#requestUrl').val().trim();
-            var requestBody = $('#requestBody').val().trim();
+            // todo: might not need this
+            var requestUrl = getRequestUrl();
+            var requestBody = getRequestBody();
 
             var n = $("input[name^='header']").length;
             var headersArr = $("input[name^='header']");
@@ -136,7 +137,7 @@ define(['postmonger'], function(Postmonger) {
             payload['arguments'].execute.inArguments.push({"values" : JSON.stringify(valuesArr)});    
             //payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
             //payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
-            payload['configurationArguments'].save.body = {"requestBody": requestBody, "requestMethod" : requestMethod, "requestUrl" : requestUrl};
+            //payload['configurationArguments'].save.body = {"requestBody": requestBody, "requestMethod" : requestMethod, "requestUrl" : requestUrl};
 
             save();
         } if(currentStep.key === 'firstCall') {
@@ -228,8 +229,15 @@ define(['postmonger'], function(Postmonger) {
 
         //1.b) Configure inArguments from the UI (end user manual config)
         var authType = getAuthType();
+        var requestUrl = getRequestUrl();
+        var requestMethod = getMethodType();
+
         inArgumentsArray.push({ "authType": authType });
         schemaInArgumentsArray.push({ "authType": {"dataType": "Text", "isNullable":false, "direction":"in"}});
+        inArgumentsArray.push({"requestUrl" : requestUrl});
+        schemaInArgumentsArray.push({ "requestUrl": {"dataType": "Text", "isNullable":false, "direction":"in"}});
+        inArgumentsArray.push({"requestMethod" : requestMethod});
+        schemaInArgumentsArray.push({ "requestMethod": {"dataType": "Text", "isNullable":false, "direction":"in"}});
 
         console.log("Payload: " + JSON.stringify(payload));
 
@@ -267,6 +275,14 @@ define(['postmonger'], function(Postmonger) {
 
     function getAuthType() {
         return $('#select1').find('option:selected').attr('value').trim();
+    }
+
+    function getRequestUrl() {
+        $('#requestUrl').val().trim()
+    }
+
+    function getRequestBody() {
+        $('#requestBody').val().trim()
     }
 
     function getMethodType() {
