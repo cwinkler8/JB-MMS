@@ -53,6 +53,9 @@ define(['postmonger'], function(Postmonger) {
     function initialize (data) {
         console.log("Calling initialize");
         console.log(data);
+
+        connection.trigger('requestSchema');
+
         if (data) {
             payload = data;
             console.log( JSON.stringify( payload , null , 4 ) );
