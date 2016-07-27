@@ -57,9 +57,9 @@ define(['postmonger'], function(Postmonger) {
             payload = data;
             $( '#initialPayload' ).text( JSON.stringify( payload , null , 4 ) );
             // set all of the values with this initial payload
-            $('#requestUrl').text(data[0].requestUrl);
-            $('#requestBody').text(data[0].requestBody);
-            
+            $('#requestUrl').text(data.requestUrl);
+            $('#requestBody').text(data.requestBody);
+
         } else {
             $( '#initialPayload' ).text( 'initActivity contained no data' );
         }
