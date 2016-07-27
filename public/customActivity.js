@@ -233,10 +233,11 @@ define(['postmonger'], function(Postmonger) {
         var requestMethod = getMethodType();
 
         inArgumentsArray.push({ "authType": authType });
-        schemaInArgumentsArray.push({ "authType": {"dataType": "Text", "isNullable":false, "direction":"in"}});
         inArgumentsArray.push({"requestUrl" : requestUrl});
-        schemaInArgumentsArray.push({ "requestUrl": {"dataType": "Text", "isNullable":false, "direction":"in"}});
         inArgumentsArray.push({"requestMethod" : requestMethod});
+
+        schemaInArgumentsArray.push({ "requestUrl": {"dataType": "Text", "isNullable":false, "direction":"in"}});
+        schemaInArgumentsArray.push({ "authType": {"dataType": "Text", "isNullable":false, "direction":"in"}});        
         schemaInArgumentsArray.push({ "requestMethod": {"dataType": "Text", "isNullable":false, "direction":"in"}});
 
         console.log("Payload: " + JSON.stringify(payload));
