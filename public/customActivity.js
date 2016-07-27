@@ -55,10 +55,10 @@ define(['postmonger'], function(Postmonger) {
         console.log(data);
         if (data) {
             payload = data;
-            $( '#initialPayload' ).text( JSON.stringify( payload , null , 4 ) );
+            console.log( JSON.stringify( payload , null , 4 ) );
 
         } else {
-            $( '#initialPayload' ).text( 'initActivity contained no data' );
+            console.log.text( 'initActivity contained no data' );
         }
 
         console.log("Payload in initialize: " + JSON.stringify(payload))
