@@ -75,8 +75,9 @@ define(['postmonger'], function(Postmonger) {
 
         var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
 
-        $.each(inArguments, function(index, inArgument) {
+        $.each(inArguments, function(index, inArgument) {            
             $.each(inArgument, function(key, val) {
+                console.log("key: " + key);
                 if (key === 'authType') {
                     authType = val;
                     console.log("authType " + authType);
@@ -138,7 +139,7 @@ define(['postmonger'], function(Postmonger) {
             payload['arguments'].execute.inArguments.push({"values" : JSON.stringify(valuesArr)});    
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
             payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
-            payload['configurationArguments'].save.body = '({"requestBody": requestBody})';
+            payload['configurationArguments'].save.body = {"requestBody": requestBody};
 
             save();
         } if(currentStep.key === 'firstCall') {
