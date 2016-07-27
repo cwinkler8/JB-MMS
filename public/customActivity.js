@@ -57,6 +57,8 @@ define(['postmonger'], function(Postmonger) {
             payload = data;
             $( '#initialPayload' ).text( JSON.stringify( payload , null , 4 ) );
             // set all of the values with this initial payload
+            console.log("set requetsURL: " + requestUrl);
+            console.log("set body: " +  requestBody);
             $('#requestUrl').text(data.requestUrl);
             $('#requestBody').text(data.requestBody);
 
@@ -137,18 +139,17 @@ define(['postmonger'], function(Postmonger) {
 
             payload['arguments'].execute.inArguments.push({"headers" : JSON.stringify(headersArr)});
             payload['arguments'].execute.inArguments.push({"values" : JSON.stringify(valuesArr)});    
-            payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
-            payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
-            payload['configurationArguments'].save.body = {"requestBody": requestBody};
+            //payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
+            //payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
+            payload['configurationArguments'].save.body = {"requestBody": requestBody, "requestMethod" : requestMethod, "requestUrl" : requestUrl};
 
             save();
         } if(currentStep.key === 'firstCall') {
             var name = $('#select1').find('option:selected').html();
             var value = getAuthType();
+            console.log("Push authType onto the stack " + value);
             payload['arguments'].execute.inArguments.push({"authType": value});
 
-            console.log("Name " + name + " value: " + value);
-                
             connection.trigger('nextStep');
         }
     }
