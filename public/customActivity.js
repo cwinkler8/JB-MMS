@@ -232,9 +232,9 @@ define(['postmonger'], function(Postmonger) {
         }
 
         //1.b) Configure inArguments from the UI (end user manual config)
-        // var value = getMessage();
-        // inArgumentsArray.push({ "message": value });
-        // schemaInArgumentsArray.push({ "message": {"dataType": "Text", "isNullable":false, "direction":"in"}});
+        var authType = getAuthType();
+        inArgumentsArray.push({ "authType": value });
+        schemaInArgumentsArray.push({ "authType": {"dataType": "Text", "isNullable":false, "direction":"in"}});
 
         console.log("Payload: " + JSON.stringify(payload));
 
