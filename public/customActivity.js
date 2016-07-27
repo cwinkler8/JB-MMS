@@ -56,6 +56,10 @@ define(['postmonger'], function(Postmonger) {
         if (data) {
             payload = data;
             $( '#initialPayload' ).text( JSON.stringify( payload , null , 4 ) );
+            // set all of the values with this initial payload
+            $('#requestUrl').text(data[0].requestUrl);
+            $('#requestBody').text(data[0].requestBody);
+            
         } else {
             $( '#initialPayload' ).text( 'initActivity contained no data' );
         }
@@ -134,7 +138,7 @@ define(['postmonger'], function(Postmonger) {
             payload['arguments'].execute.inArguments.push({"values" : JSON.stringify(valuesArr)});    
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
             payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
-            payload['configurationArguments'].save.body.push({"requestBody": requestBody});
+            payload['configurationArguments'].save.body = '({"requestBody": requestBody})';
 
             save();
         } if(currentStep.key === 'firstCall') {
