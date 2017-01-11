@@ -21,7 +21,7 @@
                  "requestBody" : ""
              }],
             "outArguments": [],
-            "url": "https://polar-taiga-52256.herokuapp.com/events", 
+            "url": "https://polar-taiga-52256.herokuapp.com/saveRequestConfig", 
             "verb": "POST",
             "body": "",
             "header": "",

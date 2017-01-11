@@ -25,9 +25,7 @@ define(['postmonger'], function(Postmonger) {
     connection.on('initActivity', initialize);
     connection.on('requestedTokens', onGetTokens);
     connection.on('requestedEndpoints', onGetEndpoints);
-
     connection.on('requestedSchema', onGetSchema);
-
     connection.on('clickedNext', onClickedNext);
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
@@ -36,7 +34,6 @@ define(['postmonger'], function(Postmonger) {
         
         // JB will respond the first time 'ready' is called with 'initActivity'
         connection.trigger('ready');
-        console.log("Fire requestSchema");
         connection.trigger('requestSchema');
         connection.trigger('requestedTokens');
         connection.trigger('requestedEndpoints');
