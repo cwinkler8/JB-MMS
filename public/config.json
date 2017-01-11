@@ -20,7 +20,6 @@
                  "requestMethod" : "",
                  "requestBody" : ""
              }],
-            "outArguments": [],
             "url": "https://polar-taiga-52256.herokuapp.com/saveRequestConfig", 
             "verb": "POST",
             "body": "",
