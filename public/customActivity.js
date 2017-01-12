@@ -54,6 +54,12 @@ define(['postmonger'], function(Postmonger) {
         if (data) {
             payload = data;
             console.log( JSON.stringify( payload , null , 4 ) );
+
+            // populate fields
+            var authType = payload['arguments'].execute.inArguments['authType'];
+            setAuthType(authType);
+
+
         } else {
             console.log.text( 'initActivity contained no data' );
         }

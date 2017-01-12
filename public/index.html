@@ -131,54 +131,8 @@
     </div>-->
 <script>    
 
-setRequestUrl("blah");
-setRequestBody("body");
-setMethodType("DELETE");
-    function setRequestUrl(requestUrl) {
-        $('#requestUrl').val(requestUrl);
-    }
-
-    function setRequestBody(requestBody) {
-        $('#requestBody').val(requestBody);
-    }    
-
-    function setMethodType(methodType) {         
-         $("#methodType").val(methodType);     
-    }
-
-
 $('#testButton').click( function() {
-console.log("Called")
-            // var elements = document.forms.requestForm.getElementsByTagName("input");
-            //var elements = document.forms.requestForm.elements['p_id[]'];
-            var fHeaders = document.forms.requestForm.querySelectorAll('input[name^="header"]')
-            var fValues = document.forms.requestForm.querySelectorAll('input[name^=value]');
-            
-            var header = {};
-
-            for(var i = 0; i < fHeaders.length; i++)
-            {                
-                /* do whatever you need to do with each input */
-                console.log("Name: " + fHeaders[i].value + " Value: " + fValues[i].value);
-                if(fHeaders[i].value.length > 0) {
-                  header[fHeaders[i].value] = fValues[i].value;                                
-                }
-            }    
-
-var headers = {"header" : header};
-            
-            console.log(headers.serializeJSON());    
-            console.log(JSON.stringify($('#requestForm').serializeJSON()));
-            var payload = {};
-
-            //payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
-            //payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
-            //payload['configurationArguments'].save.body = {"requestBody": requestBody, "requestMethod" : requestMethod, "requestUrl" : requestUrl};
-
-// replicate this payload:
-/*
-{"methodType":"DELETE","requestUrl":"postman-test.url","header":{"1":"header1","2":"header2","3":"header3"},"value":{"1":"value1","2":"value2","3":"value3"},"requestBody":""}
-*/
+console.log('test called');
 
     // $.ajax({
     //     method: 'POST',
