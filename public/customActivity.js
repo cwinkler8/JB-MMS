@@ -66,6 +66,10 @@ define(['postmonger'], function(Postmonger) {
                 // either `42` or the array
                 console.log(prop);
                 console.log("value: " + payload['arguments'].execute.inArguments[prop]);
+                for (var member in payload['arguments'].execute.inArguments[prop]) {
+                    alert('Name: ' + member);
+                    alert('Value: ' + a[member]);
+                }
             }
 
             var authType = payload['arguments'].execute.inArguments['authType'];
