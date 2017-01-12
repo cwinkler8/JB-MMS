@@ -42,14 +42,14 @@
     </script>
 </head>
 <body>
-    
+<!--    
     <a href="javascript:showhide('firstCall')">
         Click to show/hide first div.
     </a>
     </br>    
     <a href="javascript:showhide('secondCall')">
         Click to show/hide second div.
-    </a>
+    </a>-->
     
 <div id="firstCall" class="step">
     <form id="authenticationForm">
@@ -132,21 +132,20 @@
 <script>    
 
 $('#testButton').click( function() {
-console.log('test called');
 
-    // $.ajax({
-    //     method: 'POST',
-    //     dataType: 'json',
-    //     url: 'https://polar-taiga-52256.herokuapp.com/testRequestConfig',
-    //     data: JSON.stringify($('#requestForm').serializeJSON())})
-    //     .done(function(data) { 
-    //         console.log(JSON.stringify($('#requestForm').serializeJSON()));
-    //         var message = "Configuration JSON: </br>";
-    //         message += JSON.stringify(data);
-    //         jQuery.colorbox({html:message}) 
-    //     })
-    //     .fail(function(data) { alert(data); })
-    //     .always(function(data) { console.log("test request completed") });
+    $.ajax({
+        method: 'POST',
+        dataType: 'json',
+        url: 'https://polar-taiga-52256.herokuapp.com/testRequestConfig',
+        data: JSON.stringify($('#requestForm').serializeJSON())})
+        .done(function(data) { 
+            console.log(JSON.stringify($('#requestForm').serializeJSON()));
+            var message = "Configuration JSON: </br>";
+            message += JSON.stringify(data);
+            jQuery.colorbox({html:message}) 
+        })
+        .fail(function(data) { alert(data); })
+        .always(function(data) { console.log("test request completed") });
 
     });
         
