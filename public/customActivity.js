@@ -187,7 +187,7 @@ define(['postmonger'], function(Postmonger) {
         }
         
         // clear out the previous arguments
-        payload['arguments'].execute.inArguments = []; // remove all the args, only save the last one
+        payload['arguments'].execute.inArguments = []; // remove all the args, only save the last commit
 
         // Payload is initialized on populateFields above.  Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property may be overridden as desired.
