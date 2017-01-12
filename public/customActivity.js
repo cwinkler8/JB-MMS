@@ -59,7 +59,8 @@ define(['postmonger'], function(Postmonger) {
             console.log("attempt to set authType");
             console.log(payload['arguments']);
             console.log(payload['arguments'].execute);
-            console.log(payload['arguments'].execute.inArguments);
+            console.log(payload['arguments'].execute.inArguments[].authType);
+
             var authType = payload['arguments'].execute.inArguments['authType'];
             console.log("authType " + authType);
             setAuthType(authType);
