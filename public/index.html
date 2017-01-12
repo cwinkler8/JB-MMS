@@ -129,7 +129,23 @@
         <a class="ajax" href="../content/ajax.html">Click here to load new content</a></p>
         </div>
     </div>-->
-<script>      
+<script>    
+
+setRequestUrl("blah");
+setRequestBody("body");
+setMethodType("DELETE");
+    function setRequestUrl(requestUrl) {
+        $('#requestUrl').val(requestUrl);
+    }
+
+    function setRequestBody(requestBody) {
+        $('#requestBody').val(requestBody);
+    }    
+
+    function setMethodType(methodType) {         
+         $("#methodType").val(methodType);     
+    }
+
 
 $('#testButton').click( function() {
 console.log("Called")

@@ -54,7 +54,6 @@ define(['postmonger'], function(Postmonger) {
         if (data) {
             payload = data;
             console.log( JSON.stringify( payload , null , 4 ) );
-
         } else {
             console.log.text( 'initActivity contained no data' );
         }
@@ -108,10 +107,6 @@ define(['postmonger'], function(Postmonger) {
             }    
             // TODO: don't push onto the stack ... remove the other stuff off of it, otherwise
             // you just end up with a bunch of cruft on the stack
-            
-            //var headers = $('#headers').val();
-            //var values = $('#values').val();    
-            // build the headers
 
             payload['arguments'].execute.inArguments.push({"headers" : JSON.stringify(header)});            
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
@@ -187,7 +182,8 @@ define(['postmonger'], function(Postmonger) {
         }
         
         // clear out the previous arguments
-        payload['arguments'].execute.inArguments = []; // remove all the args, only save the last commit
+        // might need to move this ... TODO 
+        //payload['arguments'].execute.inArguments = []; // remove all the args, only save the last commit
 
         // Payload is initialized on populateFields above.  Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property may be overridden as desired.
@@ -216,6 +212,22 @@ define(['postmonger'], function(Postmonger) {
 
         console.log('After update activity: ' + JSON.stringify(payload));
 
+    }
+
+    function setAuthType(authType) {
+         $("#select1").val(authType);
+    }
+
+    function setRequestUrl(requestUrl) {
+        $('#requestUrl').val(requestUrl);
+    }
+
+    function setRequestBody(requestBody) {
+        $('#requestBody').val(requestBody);
+    }    
+
+    function setMethodType(methodType) {         
+         $("#methodType").val(methodType);     
     }
 
     function getAuthType() {
