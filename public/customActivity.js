@@ -195,8 +195,6 @@ define(['postmonger'], function(Postmonger) {
     function save() {
         console.log("Saving...");
 
-        connection.trigger('updateActivity', payload);
-
         console.log("Payload: " + JSON.stringify(payload));
 
         //3) Set other payload values
@@ -209,6 +207,7 @@ define(['postmonger'], function(Postmonger) {
         console.log('preparePayload', payload);
 
         console.log('After update activity: ' + JSON.stringify(payload));
+        connection.trigger('updateActivity', payload);
 
     }
 
