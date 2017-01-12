@@ -15,7 +15,7 @@
     "arguments": {
             "execute": {
             "inArguments": [],  
-            "url": "https://polar-taiga-52256.herokuapp.com/saveRequestConfig", 
+            "url": "https://polar-taiga-52256.herokuapp.com/saveGenericConfig", 
             "verb": "POST",
             "body": "",
             "header": "",

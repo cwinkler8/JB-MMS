@@ -52,6 +52,8 @@ define(['postmonger'], function(Postmonger) {
         connection.trigger('requestSchema');
 
         if (data) {
+            var authType;
+
             payload = data;
             console.log( JSON.stringify( payload , null , 4 ) );
 
@@ -67,23 +69,23 @@ define(['postmonger'], function(Postmonger) {
                 console.log(prop);
                 console.log("value: " + payload['arguments'].execute.inArguments[prop]);
                 for (var member in payload['arguments'].execute.inArguments[prop]) {
-                    console.log('Name: ' + member);
-                    console.log('Value: ' + payload['arguments'].execute.inArguments[prop][member]);
+
+                    if(member == "authType") {
+                        authType = payload['arguments'].execute.inArguments[prop][member];
+                        setAuthType(authType);
+                    }
+                    if(member == "requestMethod") {
+                        setMethodType(payload['arguments'].execute.inArguments[prop][member])     
+                    }
+
                 }
             }
-
-            var authType = payload['arguments'].execute.inArguments['authType'];
-            console.log("authType " + authType);
-            setAuthType(authType);
-
 
         } else {
             console.log.text( 'initActivity contained no data' );
         }
 
         console.log("Payload in initialize: " + JSON.stringify(payload));
-
-        var authType;
 
         // If there is no authentication method selected, disable the next button
         if (!authType) {
@@ -130,21 +132,74 @@ define(['postmonger'], function(Postmonger) {
             }    
             // TODO: don't push onto the stack ... remove the other stuff off of it, otherwise
             // you just end up with a bunch of cruft on the stack
+  		    inArgPayload['arguments'].execute.inArguments = []; // remove all the args, only save the last one
 
-            payload['arguments'].execute.inArguments.push({"headers" : JSON.stringify(header)});            
+            console.log("Push authType onto the stack " + getAuthType());
+            payload['arguments'].execute.inArguments.push({"authType" : getAuthType()});
+            payload['arguments'].execute.inArguments.push({"headers" : header});            
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
             payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
             payload['arguments'].execute.inArguments.push({"requestBody": requestBody});
 
             save();
         } if(currentStep.key === 'firstCall') {
-            var name = $('#select1').find('option:selected').html();
-            var value = getAuthType();
-            console.log("Push authType onto the stack " + value);
-            payload['arguments'].execute.inArguments.push({"authType": value});
+            // var name = $('#select1').find('option:selected').html();
+            // var value = getAuthType();
+            // console.log("Push authType onto the stack " + value);
+            // payload['arguments'].execute.inArguments.push({"authType" : value});
 
             connection.trigger('nextStep');
         }
+    }
+
+    function preparePayload() {
+        console.log("Prepare payload called");
+        //When loading the
+        if (!schemaPayload.schema){
+            connection.trigger('requestSchema');
+        }
+        
+        // clear out the previous arguments
+        // might need to move this ... TODO 
+        //payload['arguments'].execute.inArguments = []; // remove all the args, only save the last commit
+
+        // Payload is initialized on populateFields above.  Journey Builder sends an initial payload with defaults
+        // set by this activity's config.json file.  Any property may be overridden as desired.
+
+//         //1.b) Configure inArguments from the UI (end user manual config)
+//         var authType = getAuthType();
+//         var requestUrl = getRequestUrl();
+//         var requestMethod = getMethodType();
+
+//         console.log("Payload: " + JSON.stringify(payload));
+
+
+//         //3) Set other payload values
+//         payload.name = "Http Activity";
+//         payload['metaData'].isConfigured = true;
+        
+// //        payload.metaData.isConfigured = true; 
+
+//         console.log('preparePayload', payload);
+    }
+
+    function save() {
+        console.log("Saving...");
+
+        connection.trigger('updateActivity', payload);
+
+        console.log("Payload: " + JSON.stringify(payload));
+
+        //3) Set other payload values
+        payload.name = "Http Activity";
+        payload['metaData'].isConfigured = true;
+        
+//        payload.metaData.isConfigured = true; 
+
+        console.log('preparePayload', payload);
+
+        console.log('After update activity: ' + JSON.stringify(payload));
+
     }
 
     function onClickedBack () {
@@ -196,47 +251,6 @@ define(['postmonger'], function(Postmonger) {
         }
     }
 
-
-    function preparePayload() {
-        console.log("Prepare payload called");
-        //When loading the
-        if (!schemaPayload.schema){
-            connection.trigger('requestSchema');
-        }
-        
-        // clear out the previous arguments
-        // might need to move this ... TODO 
-        //payload['arguments'].execute.inArguments = []; // remove all the args, only save the last commit
-
-        // Payload is initialized on populateFields above.  Journey Builder sends an initial payload with defaults
-        // set by this activity's config.json file.  Any property may be overridden as desired.
-
-        //1.b) Configure inArguments from the UI (end user manual config)
-        var authType = getAuthType();
-        var requestUrl = getRequestUrl();
-        var requestMethod = getMethodType();
-
-        console.log("Payload: " + JSON.stringify(payload));
-
-
-        //3) Set other payload values
-        payload.name = "Http Activity";
-        payload['metaData'].isConfigured = true;
-        
-//        payload.metaData.isConfigured = true; 
-
-        console.log('preparePayload', payload);
-    }
-
-    function save() {
-        console.log("Saving...");
-
-        connection.trigger('updateActivity', payload);
-
-        console.log('After update activity: ' + JSON.stringify(payload));
-
-    }
-
     function setAuthType(authType) {
          $("#select1").val(authType);
     }
@@ -258,11 +272,11 @@ define(['postmonger'], function(Postmonger) {
     }
 
     function getRequestUrl() {
-        $('#requestUrl').val().trim()
+        return $('#requestUrl').val().trim()
     }
 
     function getRequestBody() {
-        $('#requestBody').val().trim()
+        return $('#requestBody').val().trim()
     }
 
     function getMethodType() {
