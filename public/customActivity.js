@@ -143,7 +143,6 @@ define(['postmonger'], function(Postmonger) {
             // you just end up with a bunch of cruft on the stack
   		    payload['arguments'].execute.inArguments = []; // remove all the args, only save the last one
 
-            console.log("Push authType onto the stack " + getAuthType());
             payload['arguments'].execute.inArguments.push({"authType" : getAuthType()});
             payload['arguments'].execute.inArguments.push({"headers" : header});            
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
@@ -262,6 +261,7 @@ define(['postmonger'], function(Postmonger) {
 
     function setHeaders(headers) {
         console.log("work on setting the headers")
+        console.log(headers);
     }
 
     function setAuthType(authType) {

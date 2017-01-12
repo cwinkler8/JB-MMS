@@ -25,7 +25,7 @@
         }
     },
     "configurationArguments": {
-       "applicationExtensionKey": "jb-postman-test",
+       "applicationExtensionKey": "webservice.ddownard",
        "save": {
            "url": "https://polar-taiga-52256.herokuapp.com/save",
             "body": "",
