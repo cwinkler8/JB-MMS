@@ -94,8 +94,8 @@ define(['postmonger'], function(Postmonger) {
             var requestBody = getRequestBody();
 
             // the following code correctly handles the header keys and values
-            var headers = document.forms.requestForm.querySelectorAll('input[name^="header"]')
-            var values = document.forms.requestForm.querySelectorAll('input[name^=value]');
+            var fHeaders = document.forms.requestForm.querySelectorAll('input[name^="header"]')
+            var fValues = document.forms.requestForm.querySelectorAll('input[name^=value]');
             var header = {};
 
             for(var i = 0; i < fHeaders.length; i++)
