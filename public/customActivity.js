@@ -132,7 +132,7 @@ define(['postmonger'], function(Postmonger) {
             }    
             // TODO: don't push onto the stack ... remove the other stuff off of it, otherwise
             // you just end up with a bunch of cruft on the stack
-  		    inArgPayload['arguments'].execute.inArguments = []; // remove all the args, only save the last one
+  		    payload['arguments'].execute.inArguments = []; // remove all the args, only save the last one
 
             console.log("Push authType onto the stack " + getAuthType());
             payload['arguments'].execute.inArguments.push({"authType" : getAuthType()});
