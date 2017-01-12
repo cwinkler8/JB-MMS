@@ -14,12 +14,6 @@
     },
     "arguments": {
             "execute": {
-            "inArguments": [{
-                 "authType": "",
-                 "requestUrl" : "",
-                 "requestMethod" : "",
-                 "requestBody" : ""
-             }],
             "url": "https://polar-taiga-52256.herokuapp.com/saveRequestConfig", 
             "verb": "POST",
             "body": "",

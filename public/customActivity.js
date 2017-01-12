@@ -23,8 +23,6 @@ define(['postmonger'], function(Postmonger) {
     console.log('payload pre-init: ' + JSON.stringify(payload));
      
     connection.on('initActivity', initialize);
-    connection.on('requestedTokens', onGetTokens);
-    connection.on('requestedEndpoints', onGetEndpoints);
     connection.on('requestedSchema', onGetSchema);
     connection.on('clickedNext', onClickedNext);
     connection.on('clickedBack', onClickedBack);
@@ -61,26 +59,9 @@ define(['postmonger'], function(Postmonger) {
             console.log.text( 'initActivity contained no data' );
         }
 
-        console.log("Payload in initialize: " + JSON.stringify(payload))
+        console.log("Payload in initialize: " + JSON.stringify(payload));
+
         var authType;
-        var hasInArguments = Boolean(
-            payload['arguments'] &&
-            payload['arguments'].execute &&
-            payload['arguments'].execute.inArguments &&
-            payload['arguments'].execute.inArguments.length > 0
-        );
-
-        var inArguments = hasInArguments ? payload['arguments'].execute.inArguments : {};
-
-        $.each(inArguments, function(index, inArgument) {            
-            $.each(inArgument, function(key, val) {
-                console.log("key: " + key);
-                if (key === 'authType') {
-                    authType = val;
-                    console.log("authType " + authType);
-                }
-            });
-        });
 
         // If there is no authentication method selected, disable the next button
         if (!authType) {
@@ -92,16 +73,6 @@ define(['postmonger'], function(Postmonger) {
            $('#authType').html(authType);
             showStep(null, 2);
         }
-    }
-
-    function onGetTokens (tokens) {
-        // Response: tokens = { token: <legacy token>, fuel2token: <fuel api token> }
-        console.log(tokens);
-    }
-
-    function onGetEndpoints (endpoints) {
-        // Response: endpoints = { restHost: <url> } i.e. "rest.s1.qa1.exacttarget.com"
-        console.log("Endpoints: " + JSON.stringify(endpoints));
     }
 
     function onGetSchema (getSchemaPayload) {
@@ -122,22 +93,30 @@ define(['postmonger'], function(Postmonger) {
             var requestUrl = getRequestUrl();
             var requestBody = getRequestBody();
 
-            var n = $("input[name^='header']").length;
-            var headersArr = $("input[name^='header']");
-            var valuesArr = $("input[name^='value']");
+            // the following code correctly handles the header keys and values
+            var headers = document.forms.requestForm.querySelectorAll('input[name^="header"]')
+            var values = document.forms.requestForm.querySelectorAll('input[name^=value]');
+            var header = {};
+
+            for(var i = 0; i < fHeaders.length; i++)
+            {                
+                /* do whatever you need to do with each input */
+                console.log("Name: " + fHeaders[i].value + " Value: " + fValues[i].value);
+                if(fHeaders[i].value.length > 0) {
+                  header[fHeaders[i].value] = fValues[i].value;                                
+                }
+            }    
+            // TODO: don't push onto the stack ... remove the other stuff off of it, otherwise
+            // you just end up with a bunch of cruft on the stack
             
-            console.log("Print headers: ");
-            console.log(JSON.stringify(headersArr));
-            console.log(JSON.stringify(valuesArr));
             //var headers = $('#headers').val();
             //var values = $('#values').val();    
             // build the headers
 
-            payload['arguments'].execute.inArguments.push({"headers" : JSON.stringify(headersArr)});
-            payload['arguments'].execute.inArguments.push({"values" : JSON.stringify(valuesArr)});    
-            //payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
-            //payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
-            //payload['configurationArguments'].save.body = {"requestBody": requestBody, "requestMethod" : requestMethod, "requestUrl" : requestUrl};
+            payload['arguments'].execute.inArguments.push({"headers" : JSON.stringify(header)});            
+            payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
+            payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
+            payload['arguments'].execute.inArguments.push({"requestBody": requestBody});
 
             save();
         } if(currentStep.key === 'firstCall') {
@@ -206,55 +185,20 @@ define(['postmonger'], function(Postmonger) {
         if (!schemaPayload.schema){
             connection.trigger('requestSchema');
         }
+        
+        // clear out the previous arguments
+        payload['arguments'].execute.inArguments = []; // remove all the args, only save the last one
 
         // Payload is initialized on populateFields above.  Journey Builder sends an initial payload with defaults
         // set by this activity's config.json file.  Any property may be overridden as desired.
-
-        //1.a) Configure inArguments from the interaction event
-        var inArgumentsArray = [];
-        var schemaInArgumentsArray = [];
-        for (var i = 0; i < schemaPayload.schema.length; i++){
-            var name = schemaPayload.schema[i].key.substr(schemaPayload.schema[i].key.lastIndexOf(".") + 1);
-            var inArgument = {};
-            inArgument[name] = "{{" + schemaPayload.schema[i].key + "}}"
-            inArgumentsArray.push(inArgument);
-
-            var schemaInArgument = {};
-            schemaInArgument[name] = {};
-            schemaInArgument[name].dataType = schemaPayload.schema[i].type;
-            schemaInArgument[name].isNullable = schemaPayload.schema[i].isPrimaryKey ? false : (schemaPayload.schema[i].isNullable ? true : false);
-            schemaInArgument[name].direction = "in";
-            schemaInArgumentsArray.push(schemaInArgument);
-        }
 
         //1.b) Configure inArguments from the UI (end user manual config)
         var authType = getAuthType();
         var requestUrl = getRequestUrl();
         var requestMethod = getMethodType();
 
-        inArgumentsArray.push({ "authType": authType });
-        inArgumentsArray.push({"requestUrl" : requestUrl});
-        inArgumentsArray.push({"requestMethod" : requestMethod});
-
-        schemaInArgumentsArray.push({ "requestUrl": {"dataType": "Text", "isNullable":false, "direction":"in"}});
-        schemaInArgumentsArray.push({ "authType": {"dataType": "Text", "isNullable":false, "direction":"in"}});        
-        schemaInArgumentsArray.push({ "requestMethod": {"dataType": "Text", "isNullable":false, "direction":"in"}});
-
         console.log("Payload: " + JSON.stringify(payload));
 
-        //1.c) Set all inArguments in the payload
-        payload['arguments'].execute.inArguments = inArgumentsArray;
-        payload['schema'].arguments.execute.inArguments = schemaInArgumentsArray;
-
-        //2.a) Configure outArguments
-        var outArgumentsArray = [];
-        var schemaOutArgumentsArray = [];
-        outArgumentsArray.push({ "result": "Text" });
-        schemaOutArgumentsArray.push({ "result": {"dataType": "Text", "access":"visible", "direction":"out"}});
-
-        //2.b) Set all outArguments in the payload
-        payload['arguments'].execute.outArguments = outArgumentsArray;
-        payload['schema'].arguments.execute.outArguments = schemaOutArgumentsArray;
 
         //3) Set other payload values
         payload.name = "Http Activity";
