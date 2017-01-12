@@ -59,7 +59,14 @@ define(['postmonger'], function(Postmonger) {
             console.log("attempt to set authType");
             console.log(payload['arguments']);
             console.log(payload['arguments'].execute);
-            console.log(payload['arguments'].execute.inArguments[].authType);
+            for (const prop in payload['arguments'].execute.inArguments) {
+                console.log("looping");
+                // `prop` contains the name of each property, i.e. `'code'` or `'items'`
+                // consequently, `data[prop]` refers to the value of each property, i.e.
+                // either `42` or the array
+                console.log(prop);
+                console.log("value: " + payload['arguments'].execute.inArguments[prop]);
+            }
 
             var authType = payload['arguments'].execute.inArguments['authType'];
             console.log("authType " + authType);
