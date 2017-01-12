@@ -77,7 +77,16 @@ define(['postmonger'], function(Postmonger) {
                     if(member == "requestMethod") {
                         setMethodType(payload['arguments'].execute.inArguments[prop][member])     
                     }
-
+                    if(member == "requestUrl") {
+                        setRequestUrl(payload['arguments'].execute.inArguments[prop][member]);
+                    }
+                    if(member == "requestBody") {
+                        setRequestBody(payload['arguments'].execute.inArguments[prop][member]);
+                    }
+                    if(member == "headers") {
+                        // loop through the headers and set them in the input
+                        setHeaders(payload['arguments'].execute.inArguments[prop][member])
+                    }
                 }
             }
 
@@ -249,6 +258,10 @@ define(['postmonger'], function(Postmonger) {
                 preparePayload();
                 break;
         }
+    }
+
+    function setHeaders(headers) {
+        console.log("work on setting the headers")
     }
 
     function setAuthType(authType) {
