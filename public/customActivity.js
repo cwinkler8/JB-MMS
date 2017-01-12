@@ -67,8 +67,8 @@ define(['postmonger'], function(Postmonger) {
                 console.log(prop);
                 console.log("value: " + payload['arguments'].execute.inArguments[prop]);
                 for (var member in payload['arguments'].execute.inArguments[prop]) {
-                    alert('Name: ' + member);
-                    alert('Value: ' + a[member]);
+                    console.log('Name: ' + member);
+                    console.log('Value: ' + payload['arguments'].execute.inArguments[prop][member]);
                 }
             }
 
