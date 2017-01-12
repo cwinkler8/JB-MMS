@@ -201,8 +201,9 @@ define(['postmonger'], function(Postmonger) {
 
         //3) Set other payload values
         payload.name = "Http Activity";
-        payload['metaData'].isConfigured = true;
         
+        pyaload.metaData.isConfigured = true;
+
 //        payload.metaData.isConfigured = true; 
 
         console.log('preparePayload', payload);
