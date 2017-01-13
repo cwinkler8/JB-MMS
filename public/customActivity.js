@@ -58,17 +58,15 @@ define(['postmonger'], function(Postmonger) {
             console.log( JSON.stringify( payload , null , 4 ) );
 
             // populate fields
-            console.log("attempt to set authType");
             console.log(payload['arguments']);
             console.log(payload['arguments'].execute);
             for (var prop in payload['arguments'].execute.inArguments) {
-                console.log("looping");
                 // `prop` contains the name of each property, i.e. `'code'` or `'items'`
                 // consequently, `data[prop]` refers to the value of each property, i.e.
                 // either `42` or the array
                 console.log(prop);
-                console.log("value: " + payload['arguments'].execute.inArguments[prop]);
                 for (var member in payload['arguments'].execute.inArguments[prop]) {
+                    console.log("key: " + member);
 
                     if(member == "authType") {
                         authType = payload['arguments'].execute.inArguments[prop][member];
