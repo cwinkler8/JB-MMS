@@ -260,6 +260,10 @@ define(['postmonger'], function(Postmonger) {
     function setHeaders(headers) {
         console.log("work on setting the headers")
         console.log(headers);
+        for (var header in headers) {
+            console.log("key: " + header);
+            console.log("value: " + headers[header]);
+        }
     }
 
     function setAuthType(authType) {
