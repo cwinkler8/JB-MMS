@@ -4,8 +4,6 @@ requirejs.config({
     }
 });
 
-var numberOfHeaders = 0;
-
 define(['postmonger'], function(Postmonger) {
     'use strict';
         
@@ -260,24 +258,22 @@ define(['postmonger'], function(Postmonger) {
     }
 
     function setHeaders(headers) {
-        console.log("work on setting the headers")
-        console.log(headers);
+
         for (var header in headers) {
             console.log("key: " + header);
             console.log("value: " + headers[header]);
 
-
-        var trId = "trHeaderValue" + i;
-        var headerName = "header";
-        var valueName = "value";
-        var imageName = "img" + i;
-        
-        var data = '<tr id="' + trId + '"><td id="' + headerName + '"><input type="text" value="' + header + '" size="35" name="' + headerName + '[' + i + ']' +
-                            '" placeholder="Header"></td><td id="' + valueName + 
-                            '"><input type="text" size="35" value="' + headers[header] + '" name="' + valueName + '[' + i + ']' + '" placeholder="Value"></td><td id="' + imageName + 
-                            '"><img src="images/delete.png" height="20px" width="20px"></td></tr>';
-               
-       $( "#headerTable" ).last().append(data);
+            var trId = "trHeaderValue" + i;
+            var headerName = "header";
+            var valueName = "value";
+            var imageName = "img" + i;
+            
+            var data = '<tr id="' + trId + '"><td id="' + headerName + '"><input type="text" value="' + header + '" size="35" name="' + headerName + '[' + i + ']' +
+                                '" placeholder="Header"></td><td id="' + valueName + 
+                                '"><input type="text" size="70" value="' + headers[header] + '" name="' + valueName + '[' + i + ']' + '" placeholder="Value"></td><td id="' + imageName + 
+                                '"><img src="images/delete.png" height="20px" width="20px"></td></tr>';
+                
+            $( "#headerTable" ).last().append(data);
 
         }
     }

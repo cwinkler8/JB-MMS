@@ -100,10 +100,6 @@
             <div id="headers" class="tab-pane fade in active">
                 <h3>Headers</h3>
                 <table id="headerTable">
-                    <tr>
-                        <td id="header1"><input type="text" size="35" name="header[1]" placeholder="Header"></td>
-                        <td id="value1"><input size="35" type="text" name="value[1]" placeholder="Value"></td>
-                   </tr>
                 </table>
             </div>
             
@@ -131,7 +127,17 @@
     </div>-->
 <script>    
 
-console.log("Headers in index.html: " + headers);
+/// check to see if there are any header rows in the activity ... if not, add 1
+var numRows = $("#headerTable").length;
+
+if(numRows == 0) {
+    // add 1 row
+    var firstRow = '<tr>' + 
+                    '<td id="header1"><input type="text" size="35" name="header[1]" placeholder="Header"></td>' +
+                    '<td id="value1"><input size="35" type="text" name="value[1]" placeholder="Value"></td>' + 
+                    '</tr>';
+    $("#headerTable").append(firstRow);                    
+}
 
 $('#testButton').click( function() {
 
@@ -152,10 +158,8 @@ $('#testButton').click( function() {
     });
         
     /* If clicked into the header or value box, add a row if there are no other empty rows */    
-    var i = numberOfHeaders + 2;
-    console("Number of headers: " + numberOfHeaders)
-    //var i = 2;
-        
+    var i = numRows + 1;
+
     var clickInputHandler = function () {
         var trId = "trHeaderValue" + i;
         var headerName = "header";
