@@ -259,7 +259,7 @@ define(['postmonger'], function(Postmonger) {
     }
 
     function setHeaders(headers) {
-
+        var i = 1;
         for (var header in headers) {
             console.log("key: " + header);
             console.log("value: " + headers[header]);
