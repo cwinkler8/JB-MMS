@@ -128,7 +128,7 @@
 <script>    
 
 /// check to see if there are any header rows in the activity ... if not, add 1
-var numRows = $("#headerTable").length;
+var numRows = $("#headerTable tr").length;
 console.log("numRows " + numRows);
 if(numRows == 0) {
     // add 1 row
