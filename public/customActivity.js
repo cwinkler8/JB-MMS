@@ -275,8 +275,11 @@ define(['postmonger'], function(Postmonger) {
                                 '"><img src="images/delete.png" height="20px" width="20px"></td></tr>';
                 
             $( "#headerTable" ).last().append(data);
-
+            i++;    
         }
+                    
+        $( "#headerTable" ).last().unbind('click.handler').bind('click.handler', clickInputHandler);
+        $("#" + imageName).unbind('click.handler').bind('click.handler', imageClickHandler);
     }
 
     function setAuthType(authType) {
