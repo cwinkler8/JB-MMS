@@ -277,7 +277,7 @@ define(['postmonger'], function(Postmonger) {
             $( "#headerTable" ).last().append(data);
             i++;    
         }
-                    
+
         $( "#headerTable" ).last().unbind('click.handler').bind('click.handler', clickInputHandler);
         $("#" + imageName).unbind('click.handler').bind('click.handler', imageClickHandler);
     }
@@ -327,6 +327,10 @@ define(['postmonger'], function(Postmonger) {
             $("#headerTable").append(firstRow);                    
         }
 
+
+        $( "#header1" ).bind('click.handler', clickInputHandler);
+    }
+
         $('#testButton').click( function() {
 
             $.ajax({
@@ -359,16 +363,16 @@ define(['postmonger'], function(Postmonger) {
                                     '"><input type="text" size="35" name="' + valueName + '[' + i + ']' + '" placeholder="Value"></td><td id="' + imageName + 
                                     '"><img src="images/delete.png" height="20px" width="20px"></td></tr>';
                     
-            $( "#headerTable" ).last().append(data);
-                
-            $(this).unbind('click.handler');
+                $( "#headerTable" ).last().append(data);
+                    
+                $(this).unbind('click.handler');
 
-            var jHeaderName = "input[name='header[" + i + "]']"
-            
-            $(jHeaderName).unbind('click.handler').bind('click.handler', clickInputHandler);
-            $("#" + imageName).unbind('click.handler').bind('click.handler', imageClickHandler);
-            
-            i++;          
+                var jHeaderName = "input[name='header[" + i + "]']"
+                
+                $(jHeaderName).unbind('click.handler').bind('click.handler', clickInputHandler);
+                $("#" + imageName).unbind('click.handler').bind('click.handler', imageClickHandler);
+                
+                i++;          
             };
 
             var imageClickHandler = function () {
@@ -380,8 +384,6 @@ define(['postmonger'], function(Postmonger) {
                 // console.log("remove parent");
                 $(this).parent().remove();               
             };
-                
-            $( "#header1" ).bind('click.handler', clickInputHandler);
-    }
+                    
 
 });
