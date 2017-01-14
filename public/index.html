@@ -152,7 +152,9 @@ $('#testButton').click( function() {
     });
         
     /* If clicked into the header or value box, add a row if there are no other empty rows */    
-    var i = 2;
+    var i = numberOfHeaders + 2;
+    console("Number of headers: " + numberOfHeaders)
+    //var i = 2;
         
     var clickInputHandler = function () {
         var trId = "trHeaderValue" + i;
