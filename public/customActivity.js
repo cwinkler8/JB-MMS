@@ -23,7 +23,7 @@ define(['postmonger'], function(Postmonger) {
     var currentStep = steps[0].key;
 
     $(window).ready(onRender);
-    console.log('payload pre-init: ' + JSON.stringify(payload));
+    // console.log('payload pre-init: ' + JSON.stringify(payload));
      
     connection.on('initActivity', initialize);
     connection.on('requestedSchema', onGetSchema);
@@ -50,7 +50,7 @@ define(['postmonger'], function(Postmonger) {
 
     function initialize (data) {
         console.log("Calling initialize");
-        console.log(data);
+        // console.log(data);
 
         connection.trigger('requestSchema');
 
@@ -102,7 +102,7 @@ define(['postmonger'], function(Postmonger) {
             console.log.text( 'initActivity contained no data' );
         }
 
-        console.log("Payload in initialize: " + JSON.stringify(payload));
+//        console.log("Payload in initialize: " + JSON.stringify(payload));
 
         // If there is no authentication method selected, disable the next button
         if (!authType) {
@@ -117,14 +117,14 @@ define(['postmonger'], function(Postmonger) {
     }
 
     function onGetSchema (getSchemaPayload) {
-        console.log('Postmonger - requestedSchema', getSchemaPayload);
+        // console.log('Postmonger - requestedSchema', getSchemaPayload);
         schemaPayload = getSchemaPayload;
         // Response: getSchemaPayload == { schema: [ ... ] };
         $( '#schema' ).text( JSON.stringify( getSchemaPayload , null , 4 ) );
     }
 
     function onClickedNext () {
-        console.log("currentStep: " + currentStep.key);
+        // console.log("currentStep: " + currentStep.key);
         if (
             (currentStep.key === 'secondCall') 
         ) {
@@ -142,7 +142,7 @@ define(['postmonger'], function(Postmonger) {
             for(var i = 0; i < fHeaders.length; i++)
             {                
                 /* do whatever you need to do with each input */
-                console.log("Name: " + fHeaders[i].value + " Value: " + fValues[i].value);
+                // console.log("Name: " + fHeaders[i].value + " Value: " + fValues[i].value);
                 if(fHeaders[i].value.length > 0) {
                   header[fHeaders[i].value] = fValues[i].value;                                
                 }
@@ -159,11 +159,6 @@ define(['postmonger'], function(Postmonger) {
 
             save();
         } if(currentStep.key === 'firstCall') {
-            // var name = $('#select1').find('option:selected').html();
-            // var value = getAuthType();
-            // console.log("Push authType onto the stack " + value);
-            // payload['arguments'].execute.inArguments.push({"authType" : value});
-
             connection.trigger('nextStep');
         }
     }
@@ -174,35 +169,10 @@ define(['postmonger'], function(Postmonger) {
         if (!schemaPayload.schema){
             connection.trigger('requestSchema');
         }
-        
-        // clear out the previous arguments
-        // might need to move this ... TODO 
-        //payload['arguments'].execute.inArguments = []; // remove all the args, only save the last commit
-
-        // Payload is initialized on populateFields above.  Journey Builder sends an initial payload with defaults
-        // set by this activity's config.json file.  Any property may be overridden as desired.
-
-//         //1.b) Configure inArguments from the UI (end user manual config)
-//         var authType = getAuthType();
-//         var requestUrl = getRequestUrl();
-//         var requestMethod = getMethodType();
-
-//         console.log("Payload: " + JSON.stringify(payload));
-
-
-//         //3) Set other payload values
-//         payload.name = "Http Activity";
-//         payload['metaData'].isConfigured = true;
-        
-// //        payload.metaData.isConfigured = true; 
-
-//         console.log('preparePayload', payload);
     }
 
     function save() {
         console.log("Saving...");
-
-        console.log("Payload: " + JSON.stringify(payload));
 
         //3) Set other payload values
         payload.name = "Http Activity";
@@ -235,7 +205,7 @@ define(['postmonger'], function(Postmonger) {
         currentStep = step;
 
         $('.step').hide();
-        console.log("Current step: " + currentStep.key);
+        // console.log("Current step: " + currentStep.key);
 
         switch(currentStep.key) {
             case 'firstCall':
@@ -250,7 +220,7 @@ define(['postmonger'], function(Postmonger) {
                 });
                 break;
             case 'secondCall':
-            console.log("secondCall");
+            // console.log("secondCall");
                 $('#secondCall').show();
                 connection.trigger('updateButton', {
                     button: 'back',
@@ -364,7 +334,7 @@ define(['postmonger'], function(Postmonger) {
             data: JSON.stringify($('#requestForm').serializeJSON())
         })
             .done(function (data) {
-                console.log(JSON.stringify($('#requestForm').serializeJSON()));
+                // console.log(JSON.stringify($('#requestForm').serializeJSON()));
                 var message = "Configuration JSON: </br>";
                 message += JSON.stringify(data);
                 jQuery.colorbox({ html: message })
