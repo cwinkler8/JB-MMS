@@ -88,7 +88,8 @@ define(['postmonger'], function(Postmonger) {
                         // if there are headers to set do it here
 //                        console.log(payload['arguments'].execute.inArguments[prop][member].length);
   //                      var headerLen = payload['arguments'].execute.inArguments[prop][member].length;
-console.log(member);
+console.log("memberstring: " + member);
+console.log("prop/member: " + payload['arguments'].execute.inArguments[prop][member]);
                         // if(headerLen > 0) { 
                         //     console.log("set headers");
                         //     setHeaders(payload['arguments'].execute.inArguments[prop][member])
