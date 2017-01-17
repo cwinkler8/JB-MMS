@@ -86,17 +86,13 @@ define(['postmonger'], function(Postmonger) {
                     if(member == "headers") {
                         // loop through the headers and set them in the input
                         // if there are headers to set do it here
-//                        console.log(payload['arguments'].execute.inArguments[prop][member].length);
-  //                      var headerLen = payload['arguments'].execute.inArguments[prop][member].length;
-console.log("memberstring: " + member);
-console.log("prop/member: " + payload['arguments'].execute.inArguments[prop][member]);
                         var keys = Object.keys(payload['arguments'].execute.inArguments[prop][member]);
                         if(keys.length > 0) { 
                         //     console.log("set headers");
                              setHeaders(payload['arguments'].execute.inArguments[prop][member])
                         } else {
                             // console.log("add a default row")
-                            addRow(t);    
+                            addEmptyRow(t);    
                         }
                     }
                 }
@@ -271,70 +267,58 @@ console.log("prop/member: " + payload['arguments'].execute.inArguments[prop][mem
         }
     }
 
-function removeRow(index) {
-    // remove this row
-    console.log("remove row: " + index);
-
-}
-
-function addRow(dt) {
-    addRow(dt, "empty", "empty");
-}
-
-function addRow(dt, headerKey, headerValue)  {
-
-    var rowIndex = dt.rows().count();    
-    console.log("Row count: " + rowIndex);
-
-    if(rowIndex < lastRowNum) {
-        rowIndex = lastRowNum;
+    function addEmptyRow(dt) {
+        addRow(dt, "", "");
     }
-    
-    var imageName = "img" + rowIndex;
 
-    dt.row.add([
-            '<input id="header[' + rowIndex + ']" type="text" size="35" value="' + headerKey +'" name="header[' + rowIndex + ']" placeholder="Header">',
-            '<input type="text" size="70" value="' + headerValue + '" name="value[' + rowIndex + ']" placeholder="Value">',
-            '<img id="' + imageName + '" src="images/delete.png" height="20px" width="20px">']
-     ).draw();
+    function addRow(dt, headerKey, headerValue)  {
 
-     lastRowNum++;
+        var rowIndex = dt.rows().count();    
+        console.log("Row count: " + rowIndex);
 
-     $("#" + imageName).click(function(event) {
-        t.row( $(this).parents('tr') ).remove().draw();         
-     });
-}
+        if(rowIndex < lastRowNum) {
+            rowIndex = lastRowNum;
+        }
+        
+        var imageName = "img" + rowIndex;
 
-$(document).ready(function() {
-    
-    t = $('#headerTable').DataTable( {
-        "dom" : "tB",
-        "bAutoWidth": false,
-        "paging":   false,
-        "ordering": false,
-        "info":     false,
-        "searching": false,
-        "buttons": [
-            {
-                text: 'Add Header',
-                action: function ( e, dt, node, config ) {
-                    addRow(dt);
-                }                
-            }
-        ]
+        dt.row.add([
+                '<input id="header[' + rowIndex + ']" type="text" size="35" value="' + headerKey +'" name="header[' + rowIndex + ']" placeholder="Header">',
+                '<input type="text" size="70" value="' + headerValue + '" name="value[' + rowIndex + ']" placeholder="Value">',
+                '<img id="' + imageName + '" src="images/delete.png" height="20px" width="20px">']
+        ).draw();
+
+        lastRowNum++;
+
+        $("#" + imageName).click(function(event) {
+            t.row( $(this).parents('tr') ).remove().draw();         
+        });
+    }
+
+    $(document).ready(function() {
+        
+        t = $('#headerTable').DataTable( {
+            "dom" : "tB",
+            "bAutoWidth": false,
+            "paging":   false,
+            "ordering": false,
+            "info":     false,
+            "searching": false,
+            "buttons": [
+                {
+                    text: 'Add Header',
+                    action: function ( e, dt, node, config ) {
+                        addEmptyRow(dt);
+                    }                
+                }
+            ]
+        } );
+        
     } );
-     
-
-
-} );
 
     function setHeaders(headers) {
 
         for (var header in headers) {
-                   
-            console.log("hkey: " + header);
-            console.log("hvalue: " + headers[header]);
-
             addRow(t, header, headers[header]);            
         }
     }
