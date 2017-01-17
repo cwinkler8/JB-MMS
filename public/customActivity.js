@@ -278,7 +278,7 @@ function addRow(dt) {
     addRow(dt, "", "");
 }
 
-function addRow(dt, headerValue, name)  {
+function addRow(dt, headerKey, headerValue)  {
 
     var rowIndex = dt.rows().count();    
     console.log("Row count: " + rowIndex);
@@ -290,8 +290,8 @@ function addRow(dt, headerValue, name)  {
     var imageName = "img" + rowIndex;
 
     dt.row.add([
-            '<input id="header[' + rowIndex + ']" type="text" size="35" name="header[' + rowIndex + ']" placeholder="Header">',
-            '<input type="text" size="70" name="value[' + rowIndex + ']" placeholder="Value">',
+            '<input id="header[' + rowIndex + ']" type="text" size="35" value="' + headerKey +'" name="header[' + rowIndex + ']" placeholder="Header">',
+            '<input type="text" size="70" value="' + headerValue + '" name="value[' + rowIndex + ']" placeholder="Value">',
             '<img id="' + imageName + '" src="images/delete.png" height="20px" width="20px">']
      ).draw();
 
