@@ -61,7 +61,6 @@ define(['postmonger'], function(Postmonger) {
             console.log( JSON.stringify( payload , null , 4 ) );
 
             // populate fields
-            console.log(payload['arguments']);
             console.log(payload['arguments'].execute);
             for (var prop in payload['arguments'].execute.inArguments) {
                 // `prop` contains the name of each property, i.e. `'code'` or `'items'`
@@ -87,9 +86,9 @@ define(['postmonger'], function(Postmonger) {
                     if(member == "headers") {
                         // loop through the headers and set them in the input
                         // if there are headers to set do it here
-                        console.log(payload['arguments'].execute.inArguments[prop][member].length);
-                        var headerLen = payload['arguments'].execute.inArguments[prop][member].length;
-
+//                        console.log(payload['arguments'].execute.inArguments[prop][member].length);
+  //                      var headerLen = payload['arguments'].execute.inArguments[prop][member].length;
+console.log(members);
                         if(headerLen > 0) { 
                             console.log("set headers");
                             setHeaders(payload['arguments'].execute.inArguments[prop][member])
