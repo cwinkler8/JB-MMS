@@ -89,10 +89,10 @@ define(['postmonger'], function(Postmonger) {
 //                        console.log(payload['arguments'].execute.inArguments[prop][member].length);
   //                      var headerLen = payload['arguments'].execute.inArguments[prop][member].length;
 console.log(member);
-                        if(headerLen > 0) { 
-                            console.log("set headers");
-                            setHeaders(payload['arguments'].execute.inArguments[prop][member])
-                        } 
+                        // if(headerLen > 0) { 
+                        //     console.log("set headers");
+                        //     setHeaders(payload['arguments'].execute.inArguments[prop][member])
+                        // } 
                     }
                 }
             }
