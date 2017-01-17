@@ -94,7 +94,10 @@ console.log("prop/member: " + payload['arguments'].execute.inArguments[prop][mem
                         if(keys.length > 0) { 
                         //     console.log("set headers");
                              setHeaders(payload['arguments'].execute.inArguments[prop][member])
-                        } 
+                        } else {
+                            // console.log("add a default row")
+                            addRow(t);    
+                        }
                     }
                 }
             }
@@ -275,7 +278,7 @@ function removeRow(index) {
 }
 
 function addRow(dt) {
-    addRow(dt, "", "");
+    addRow(dt, "empty", "empty");
 }
 
 function addRow(dt, headerKey, headerValue)  {
@@ -321,10 +324,7 @@ $(document).ready(function() {
         ]
     } );
      
-    if (t.rows().count() <= 0) {
-        console.log("add a default row")
-        addRow(t);
-    }
+
 
 } );
 
