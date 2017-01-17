@@ -4,6 +4,9 @@ requirejs.config({
     }
 });
 
+var t;
+var lastRowNum = 0;
+
 define(['postmonger'], function(Postmonger) {
     'use strict';
         
@@ -83,12 +86,19 @@ define(['postmonger'], function(Postmonger) {
                     }
                     if(member == "headers") {
                         // loop through the headers and set them in the input
-                        setHeaders(payload['arguments'].execute.inArguments[prop][member])
+                        // if there are headers to set do it here
+                        console.log(payload['arguments'].execute.inArguments[prop][member].length);
+                        var headerLen = payload['arguments'].execute.inArguments[prop][member].length;
+
+                        if(headerLen > 0) { 
+                            setHeaders(payload['arguments'].execute.inArguments[prop][member])
+                        } else {
+
+                        }
                     }
                 }
             }
-            setupHandlers();
-
+            
         } else {
             console.log.text( 'initActivity contained no data' );
         }
@@ -258,28 +268,77 @@ define(['postmonger'], function(Postmonger) {
         }
     }
 
+function removeRow(index) {
+    // remove this row
+    console.log("remove row: " + index);
+
+}
+
+function addRow(dt) {
+    addRow(dt, "", "");
+}
+
+function addRow(dt, headerValue, name)  {
+
+    var rowIndex = dt.rows().count();    
+    console.log("Row count: " + rowIndex);
+
+    if(rowIndex < lastRowNum) {
+        rowIndex = lastRowNum;
+    }
+    
+    var imageName = "img" + rowIndex;
+
+    dt.row.add([
+            '<input id="header[' + rowIndex + ']" type="text" size="35" name="header[' + rowIndex + ']" placeholder="Header">',
+            '<input type="text" size="70" name="value[' + rowIndex + ']" placeholder="Value">',
+            '<img id="' + imageName + '" src="images/delete.png" height="20px" width="20px">']
+     ).draw();
+
+     lastRowNum++;
+
+     $("#" + imageName).click(function(event) {
+        t.row( $(this).parents('tr') ).remove().draw();         
+     });
+}
+
+$(document).ready(function() {
+    
+    t = $('#headerTable').DataTable( {
+        "dom" : "tB",
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        "searching": false,
+        "buttons": [
+            {
+                text: 'Add Header',
+                action: function ( e, dt, node, config ) {
+                    addRow(dt);
+                }                
+            }
+        ]
+    } );
+     
+    if (t.rows().count() <= 0) {
+        console.log("add a default row")
+        addRow(t);
+    }
+
+} );
+
     function setHeaders(headers) {
         var i = 1;
+
         for (var header in headers) {
+                   
             console.log("key: " + header);
             console.log("value: " + headers[header]);
 
-            var trId = "trHeaderValue" + i;
-            var headerName = "header";
-            var valueName = "value";
-            var imageName = "img" + i;
+            addRow(t, header, headers[header]);
             
-            var data = '<tr id="' + trId + '"><td id="' + headerName + '"><input type="text" value="' + header + '" size="35" name="' + headerName + '[' + i + ']' +
-                                '" placeholder="Header"></td><td id="' + valueName + 
-                                '"><input type="text" size="70" value="' + headers[header] + '" name="' + valueName + '[' + i + ']' + '" placeholder="Value"></td><td id="' + imageName + 
-                                '"><img src="images/delete.png" height="20px" width="20px"></td></tr>';
-                
-            $( "#headerTable" ).last().append(data);
             i++;    
         }
-
-        $( "#headerTable" ).last().unbind('click.handler').bind('click.handler', clickInputHandler);
-        $("#" + imageName).unbind('click.handler').bind('click.handler', imageClickHandler);
     }
 
     function setAuthType(authType) {
@@ -314,76 +373,23 @@ define(['postmonger'], function(Postmonger) {
         return $('#methodType').find('option:selected').attr('value').trim();
     }
 
-    function setupHandlers() {
-        /// check to see if there are any header rows in the activity ... if not, add 1
-        var numRows = $("#headerTable tr").length;
-        console.log("numRows " + numRows);
-        if(numRows == 0) {
-            // add 1 row
-            var firstRow = '<tr>' + 
-                            '<td id="header1"><input type="text" size="35" name="header[1]" placeholder="Header"></td>' +
-                            '<td id="value1"><input size="35" type="text" name="value[1]" placeholder="Value"></td>' + 
-                            '</tr>';
-            $("#headerTable").append(firstRow);                    
-        }
+    $('#testButton').click(function () {
 
+        $.ajax({
+            method: 'POST',
+            dataType: 'json',
+            url: 'https://polar-taiga-52256.herokuapp.com/testRequestConfig',
+            data: JSON.stringify($('#requestForm').serializeJSON())
+        })
+            .done(function (data) {
+                console.log(JSON.stringify($('#requestForm').serializeJSON()));
+                var message = "Configuration JSON: </br>";
+                message += JSON.stringify(data);
+                jQuery.colorbox({ html: message })
+            })
+            .fail(function (data) { alert(data); })
+            .always(function (data) { console.log("test request completed") });
 
-        $( "#header1" ).bind('click.handler', clickInputHandler);
-    }
-
-        $('#testButton').click( function() {
-
-            $.ajax({
-                method: 'POST',
-                dataType: 'json',
-                url: 'https://polar-taiga-52256.herokuapp.com/testRequestConfig',
-                data: JSON.stringify($('#requestForm').serializeJSON())})
-                .done(function(data) { 
-                    console.log(JSON.stringify($('#requestForm').serializeJSON()));
-                    var message = "Configuration JSON: </br>";
-                    message += JSON.stringify(data);
-                    jQuery.colorbox({html:message}) 
-                })
-                .fail(function(data) { alert(data); })
-                .always(function(data) { console.log("test request completed") });
-
-            });
-                
-            /* If clicked into the header or value box, add a row if there are no other empty rows */    
-            var i = numRows + 1;
-
-            var clickInputHandler = function () {
-                var trId = "trHeaderValue" + i;
-                var headerName = "header";
-                var valueName = "value";
-                var imageName = "img" + i;
-                
-                var data = '<tr id="' + trId + '"><td id="' + headerName + '"><input type="text" size="35" name="' + headerName + '[' + i + ']' +
-                                    '" placeholder="Header"></td><td id="' + valueName + 
-                                    '"><input type="text" size="35" name="' + valueName + '[' + i + ']' + '" placeholder="Value"></td><td id="' + imageName + 
-                                    '"><img src="images/delete.png" height="20px" width="20px"></td></tr>';
-                    
-                $( "#headerTable" ).last().append(data);
-                    
-                $(this).unbind('click.handler');
-
-                var jHeaderName = "input[name='header[" + i + "]']"
-                
-                $(jHeaderName).unbind('click.handler').bind('click.handler', clickInputHandler);
-                $("#" + imageName).unbind('click.handler').bind('click.handler', imageClickHandler);
-                
-                i++;          
-            };
-
-            var imageClickHandler = function () {
-                // delete this row from the table
-                if($(this).closest("tr").is(":last-child")) {
-                // turn off the previous tds!
-                $(this).closest("tr").prev().children().eq(0).unbind('click.handler').bind('click.handler', clickInputHandler);     
-                }        
-                // console.log("remove parent");
-                $(this).parent().remove();               
-            };
-                    
+    });
 
 });
