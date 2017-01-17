@@ -38,3 +38,7 @@ body {
 textarea:focus, input:focus{
     outline: none;
 }
+
+.dataTables_wrapper {
+    position: fixed;
+}

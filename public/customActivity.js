@@ -91,10 +91,9 @@ define(['postmonger'], function(Postmonger) {
                         var headerLen = payload['arguments'].execute.inArguments[prop][member].length;
 
                         if(headerLen > 0) { 
+                            console.log("set headers");
                             setHeaders(payload['arguments'].execute.inArguments[prop][member])
-                        } else {
-
-                        }
+                        } 
                     }
                 }
             }
@@ -306,6 +305,7 @@ $(document).ready(function() {
     
     t = $('#headerTable').DataTable( {
         "dom" : "tB",
+        "bAutoWidth": false,
         "paging":   false,
         "ordering": false,
         "info":     false,
@@ -328,16 +328,13 @@ $(document).ready(function() {
 } );
 
     function setHeaders(headers) {
-        var i = 1;
 
         for (var header in headers) {
                    
-            console.log("key: " + header);
-            console.log("value: " + headers[header]);
+            console.log("hkey: " + header);
+            console.log("hvalue: " + headers[header]);
 
-            addRow(t, header, headers[header]);
-            
-            i++;    
+            addRow(t, header, headers[header]);            
         }
     }
 
