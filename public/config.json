@@ -14,7 +14,11 @@
     },
     "arguments": {
             "execute": {
-            "inArguments": [],  
+            "inArguments": [
+                {
+                    "choice": "{{Interaction.generic-http-activity.actualChoice}}"
+                }
+            ],  
             "url": "https://polar-taiga-52256.herokuapp.com/saveRequestConfig", 
             "verb": "POST",
             "body": "",
@@ -25,7 +29,7 @@
         }
     },
     "configurationArguments": {
-       "applicationExtensionKey": "webservice.ddownard",
+       "applicationExtensionKey": "generic-http-activity",
        "save": {
            "url": "https://polar-taiga-52256.herokuapp.com/save",
             "body": "",
