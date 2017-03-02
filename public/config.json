@@ -63,7 +63,15 @@
     "schema": {
         "arguments": {
             "execute": {
-                "inArguments": []
+                "inArguments": [
+                    {
+                        "choice": {
+                            "dataType": "Text",
+                            "isNullable": false,
+                            "direction": "in"   
+                        }
+                    }
+                ]
             }
         }
     }    
