@@ -176,11 +176,13 @@ define(['postmonger'], function(Postmonger) {
 
     connection.on('requestedInteraction', function (ixn) {
     // Note: This would use underscore to get the first random split activity returned, but that doesn't mean it's the first in the tree of activities
+    console.log("Calling requestInteraction");
     var firstRandomSplit = _.findWhere(ixn.activities, {type: 'RANDOMSPLIT'})
+    console.log(firstRandomSplit)
     payload['arguments'].inArguments.push([{
         choice: '{{Interaction.' + firstRandomSplit.key + '.actualChoice}}'
         }])
-    })
+    });
 
     function save() {
         console.log("Saving...");
