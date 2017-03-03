@@ -122,6 +122,7 @@ define(['postmonger'], function(Postmonger) {
         schemaPayload = getSchemaPayload;
         // Response: getSchemaPayload == { schema: [ ... ] };
         $( '#schema' ).text( JSON.stringify( getSchemaPayload , null , 4 ) );
+        console.log(getSchemaPayload);
     }
 
     function onClickedNext () {
