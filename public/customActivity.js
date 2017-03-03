@@ -6,11 +6,11 @@ requirejs.config({
     backbone: {
       deps: ["underscore", "jquery"],
       exports: "Backbone"
-    }
     },    
     paths: {
         postmonger: 'js/postmonger'
     }
+  }
 });
 
 //the "main" function to bootstrap your code
