@@ -4,6 +4,8 @@ requirejs.config({
     }
 });
 
+var _ = require('underscore');
+
 var t;
 var lastRowNum = 0;
 var firstRandomSplit;
@@ -122,6 +124,7 @@ define(['postmonger'], function(Postmonger) {
         schemaPayload = getSchemaPayload;
         // Response: getSchemaPayload == { schema: [ ... ] };
         $( '#schema' ).text( JSON.stringify( getSchemaPayload , null , 4 ) );
+        // schema payload contains the name of the RANDOMSPLIT
         console.log(getSchemaPayload);
     }
 
@@ -180,11 +183,10 @@ define(['postmonger'], function(Postmonger) {
     }
 
     connection.on('requestedInteraction', function (ixn) {
-    // Note: This would use underscore to get the first random split activity returned, but that doesn't mean it's the first in the tree of activities
-    console.log("Calling requestInteraction");
-    firstRandomSplit = _.findWhere(ixn.activities, {type: 'RANDOMSPLIT'})
-    console.log(firstRandomSplit)
-
+        // Note: This would use underscore to get the first random split activity returned, but that doesn't mean it's the first in the tree of activities
+        console.log("Calling requestInteraction");
+        firstRandomSplit = _.findWhere(ixn.activities, {type: 'RANDOMSPLIT'});
+        console.log(firstRandomSplit);
     });
 
     function save() {
