@@ -6,6 +6,7 @@ requirejs.config({
 
 var t;
 var lastRowNum = 0;
+var firstRandomSplit;
 
 define(['postmonger'], function(Postmonger) {
     'use strict';
@@ -50,8 +51,8 @@ define(['postmonger'], function(Postmonger) {
 
     function initialize (data) {
         console.log("Calling initialize");
-        // console.log(data);
 
+        connection.trigger('requestInteraction');    
         connection.trigger('requestSchema');
 
         if (data) {
@@ -158,8 +159,11 @@ define(['postmonger'], function(Postmonger) {
             payload['arguments'].execute.inArguments.push({"requestBody": requestBody});
 
             // before saving add the activity onto the split
-            connection.trigger('requestInteraction');    
 
+            payload['arguments'].inArguments.push([{
+                choice: '{{Interaction.' + firstRandomSplit.key + '.actualChoice}}'
+            }]);
+    
             save();
         } if(currentStep.key === 'firstCall') {
             connection.trigger('nextStep');
@@ -177,11 +181,9 @@ define(['postmonger'], function(Postmonger) {
     connection.on('requestedInteraction', function (ixn) {
     // Note: This would use underscore to get the first random split activity returned, but that doesn't mean it's the first in the tree of activities
     console.log("Calling requestInteraction");
-    var firstRandomSplit = _.findWhere(ixn.activities, {type: 'RANDOMSPLIT'})
+    firstRandomSplit = _.findWhere(ixn.activities, {type: 'RANDOMSPLIT'})
     console.log(firstRandomSplit)
-    payload['arguments'].inArguments.push([{
-        choice: '{{Interaction.' + firstRandomSplit.key + '.actualChoice}}'
-        }])
+
     });
 
     function save() {
