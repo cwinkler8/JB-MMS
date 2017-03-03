@@ -1,26 +1,19 @@
 requirejs.config({
-  shim: {
-    underscore: {
-      exports: '_'
-    },
-    backbone: {
-      deps: ["underscore", "jquery"],
-      exports: "Backbone"
-    },    
+   
     paths: {
-        postmonger: 'js/postmonger'
+        postmonger: 'js/postmonger',
+        underscore: 'js/underscore'
     }
-  }
 });
 
 //the "main" function to bootstrap your code
-require(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {   // or, you could use these deps in a separate module using define
+//require(['jquery', 'underscore', 'backbone'];   // or, you could use these deps in a separate module using define
 
 var t;
 var lastRowNum = 0;
 var firstRandomSplit;
 
-define(['postmonger'], function(Postmonger) {
+define(['postmonger', 'underscore'], function(Postmonger, _) {
     'use strict';
         
     var connection = new Postmonger.Session();
