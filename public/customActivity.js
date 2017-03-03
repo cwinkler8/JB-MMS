@@ -167,7 +167,7 @@ define(['postmonger', 'underscore'], function(Postmonger, _) {
 
             // before saving add the activity onto the split
 
-            payload['arguments'].inArguments.push([{
+            payload['arguments'].execute.inArguments.push([{
                 choice: '{{Interaction.' + firstRandomSplit.key + '.actualChoice}}'
             }]);
     
