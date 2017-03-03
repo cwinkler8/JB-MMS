@@ -30,7 +30,7 @@ define(['postmonger'], function(Postmonger) {
     connection.on('clickedNext', onClickedNext);
     connection.on('clickedBack', onClickedBack);
     connection.on('gotoStep', onGotoStep);
-
+    
     function onRender() {
         
         // JB will respond the first time 'ready' is called with 'initActivity'
@@ -157,6 +157,9 @@ define(['postmonger'], function(Postmonger) {
             payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
             payload['arguments'].execute.inArguments.push({"requestBody": requestBody});
 
+            // before saving add the activity onto the split
+            connection.trigger('requestInteraction');    
+
             save();
         } if(currentStep.key === 'firstCall') {
             connection.trigger('nextStep');
@@ -170,6 +173,14 @@ define(['postmonger'], function(Postmonger) {
             connection.trigger('requestSchema');
         }
     }
+
+    connection.on('requestedInteraction', function (ixn) {
+    // Note: This would use underscore to get the first random split activity returned, but that doesn't mean it's the first in the tree of activities
+    var firstRandomSplit = _.findWhere(ixn.activities, {type: 'RANDOMSPLIT'})
+    payload['arguments'].inArguments.push([{
+        choice: '{{Interaction.' + firstRandomSplit.key + '.actualChoice}}'
+        }])
+    })
 
     function save() {
         console.log("Saving...");

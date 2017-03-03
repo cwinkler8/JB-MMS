@@ -14,11 +14,7 @@
     },
     "arguments": {
             "execute": {
-            "inArguments": [
-                {
-                    "choice": "{{Interaction.generic-http-activity.actualChoice}}"
-                }
-            ],  
+            "inArguments": [],  
             "url": "https://polar-taiga-52256.herokuapp.com/saveRequestConfig", 
             "verb": "POST",
             "body": "",
@@ -63,15 +59,7 @@
     "schema": {
         "arguments": {
             "execute": {
-                "inArguments": [
-                    {
-                        "choice": {
-                            "dataType": "Text",
-                            "isNullable": false,
-                            "direction": "in"   
-                        }
-                    }
-                ]
+                "inArguments": []
             }
         }
     }    
