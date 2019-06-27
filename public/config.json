@@ -25,7 +25,7 @@
         }
     },
     "configurationArguments": {
-       "applicationExtensionKey": "generic-http-activity",
+       "applicationExtensionKey": "c504d533-8a98-45ab-8451-bf4994139397",
        "save": {
            "url": "https://polar-taiga-52256.herokuapp.com/save",
             "body": "",

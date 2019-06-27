@@ -163,6 +163,9 @@ define(['postmonger', 'underscore'], function(Postmonger, _) {
             payload['arguments'].execute.inArguments.push({"headers" : header});            
             payload['arguments'].execute.inArguments.push({"requestUrl": requestUrl});            
             payload['arguments'].execute.inArguments.push({"requestMethod": requestMethod});
+
+
+            
             payload['arguments'].execute.inArguments.push({"requestBody": requestBody});
 
             // before saving add the activity onto the split
@@ -186,7 +189,8 @@ define(['postmonger', 'underscore'], function(Postmonger, _) {
     }
 
     connection.on('requestedInteraction', function (ixn) {
-        // Note: This would use underscore to get the first random split activity returned, but that doesn't mean it's the first in the tree of activities
+        // Note: This would use underscore to get the first random split activity returned, 
+        // but that doesn't mean it's the first in the tree of activities
         console.log("Calling requestInteraction");
         firstRandomSplit = _.findWhere(ixn.activities, {type: 'RANDOMSPLIT'});
         console.log(firstRandomSplit);
