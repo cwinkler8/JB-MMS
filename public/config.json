@@ -15,7 +15,7 @@
     "arguments": {
             "execute": {
             "inArguments": [],  
-            "url": "https://polar-taiga-52256.herokuapp.com/saveRequestConfig", 
+            "url": "https://mms-send.herokuapp.com/saveRequestConfig", 
             "verb": "POST",
             "body": "",
             "header": "",
@@ -25,21 +25,21 @@
         }
     },
     "configurationArguments": {
-       "applicationExtensionKey": "c504d533-8a98-45ab-8451-bf4994139397",
+       "applicationExtensionKey": "1d8bf78d-1aea-44b1-897f-75812b22e95e",
        "save": {
-           "url": "https://polar-taiga-52256.herokuapp.com/save",
+           "url": "https://mms-send.herokuapp.com/save",
             "body": "",
             "verb": "POST",
             "useJwt": false
        },
        "publish": {
-           "url": "https://polar-taiga-52256.herokuapp.com/publish",
+           "url": "https://mms-send.herokuapp.com/publish",
             "body": "",
             "verb": "POST",
             "useJwt": false
        },
        "validate": {
-           "url": "https://polar-taiga-52256.herokuapp.com/validate",
+           "url": "https://mms-send.herokuapp.com/validate",
             "body": "",
             "verb": "POST",
             "useJwt": false
